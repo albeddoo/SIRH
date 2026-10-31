@@ -1,6 +1,6 @@
 # RAPPORT PHASE 00 — SIRH (ATS local WampServer)
 
-> Date : 2026-11-01 · Statut : **Livrables documentaires produits — en attente de validation humaine pour la Phase 01**
+> Date : 2026-11-01 · Statut : **Corrections restantes de la Phase 00 achevées (A-03/A-04, A-05, A-07, A-08, D-08 provisoire, D-16 validée) — contrôle documentaire intégral effectué — en attente de validation humaine pour la Phase 01**
 > Périmètre de ce livrable : analyse et cadrage uniquement. Aucun code PHP/JS/SQL, aucune migration, aucun squelette applicatif.
 
 ## 1. Statut du dépôt (vérifié)
@@ -13,16 +13,16 @@
 
 ## 2. Sources de vérité et hiérarchie
 
-Hiérarchie appliquée (cf. `docs/01_REGLES_ET_SOURCE_DE_VERITE.md`) :
-1. Décision explicite la plus récente de l'utilisateur ;
-2. Cahier des charges PDF source (24 pages) ;
-3. Spécification de phase ;
-4. Registre de décisions validées ;
-5. Bonne pratique technique sans invention fonctionnelle.
+Hiérarchie documentaire approuvée par le propriétaire (D-16, validation du 2026-10-31) :
+1. Décisions explicitement validées par le propriétaire du projet ;
+2. PDF original (24 pages) pour son contenu effectivement visuellement vérifiable ;
+3. `MASTER_PROMPT_REFERENCE_COMPLET_V3.md` comme référence textuelle complémentaire officielle (exigences complémentaires et spécifications structurées) — jamais présenté comme transcription certifiée et intégrale du PDF ;
+4. Documents d'analyse produits à partir de ces références.
+(En tout état de cause : aucune invention fonctionnelle ; bonnes pratiques techniques uniquement si non contraires aux niveaux 1-3.)
 
 État des sources :
 - `references/CAHIER_DES_CHARGES_SOURCE_24_PAGES.pdf` : 24 pages **sans couche texte** (0 caractère extractible, produit par « Microsoft: Print To PDF »). Analyse effectuée par rendu visuel + OCR (voir § 3).
-- `references/MASTER_PROMPT_REFERENCE_COMPLET_V3.md` : **référence textuelle de travail** (validation utilisateur du 2026-11-01), 1749 lignes, structurée en 14 parties + annexes.
+- `references/MASTER_PROMPT_REFERENCE_COMPLET_V3.md` : **référence textuelle complémentaire officielle** (D-16 validée par le propriétaire le 2026-10-31 ; jamais une transcription certifiée/intégrale du PDF), 1749 lignes, structurée en 14 parties + annexes.
 - `QWEN.md`, `AGENTS.md`, `docs/*` : règles d'exécution et contrats de phase.
 
 ## 3. Comparaison PDF ↔ MASTER PROMPT V3
@@ -31,7 +31,7 @@ Résultat détaillé : `01_COMPARISON_PDF_VS_MASTER_PROMPT.md`. Synthèse :
 - **Alignement substantiel confirmé** sur : MVP-01→MVP-10, rôles et matrice de permissions, sitemap, grille de scoring 100 pts, résultats Nadia 90 / Salma 85 / Amine 70 / Youssef 70 / Imane 35, règle de départage proposée (compétences clés → shortlist Nadia, Salma, Amine), pipeline/Kanban, entretiens/évaluation 1–5, exports PDF/XLSX (neutralisation des formules), T-01→T-20, conditions d'acceptation MVP, plan de réalisation, scénario de démonstration, questions pédagogiques.
 - **Éléments présents dans le PDF mais non repris explicitement dans le MP V3** : nom d'origine « TalentFlow ATS », mention Chart.js, hypothèse « lien Google Slides non consulté ».
 - **Ajouts du MP V3 non trouvés dans le PDF (OCR)** : Partie V Administration centralisée (§24.1–24.19), préférences personnelles (§25), stack locale imposée WampServer (§27–29), stratégie de migrations et cinq bases locales (§30), stockage privé détaillé (§31), sauvegardes/restauration (§32), 150 candidatures fictives (§36), comptes de test (§37), tests complémentaires T-21→T-35 (§43), annexe équipe 5 membres.
-- **Limite honnête** : l'OCR n'est pas une vérification mot à mot. Les tableaux denses ont pu être partiellement mal reconnus. La fidélité de la transcription est jugée **substantiellement fidèle sur le périmètre fonctionnel**, mais **non certifiée intégrale**. À valider : D-16 (le MP V3 peut-il servir de référence officielle complète malgré les ajouts ?).
+- **Limite honnête (correction A-05)** : l'analyse du PDF repose sur son **rendu visuel et sur un OCR texte** — le fichier ne contient aucune couche texte extractible. Par conséquent : (i) la **fidélité substantielle** du MP V3 par rapport au PDF est **confirmée** sur tout le périmètre fonctionnel critique (valeurs clés recoupées) ; (ii) la **fidélité intégrale, mot à mot, n'est PAS certifiée** : les cellules des tableaux denses (matrice de permissions p7, grille p10), la mise en forme, les logos/captures et certaines lignes bruitées des pages 22-23 ne sont pas vérifiables avec certitude. Aucune conclusion ne doit être présentée comme une transcription certifiée du PDF. Voir la liste détaillée des incertitudes résiduelles dans `01_COMPARISON_PDF_VS_MASTER_PROMPT.md`. Statut du MP V3 : **validé comme référence textuelle complémentaire officielle (D-16, validation du propriétaire du 2026-10-31)** — jamais comme transcription certifiée et intégrale du PDF.
 
 ## 4. Livrables produits dans `docs/ANALYSE/`
 
@@ -53,7 +53,7 @@ Résultat détaillé : `01_COMPARISON_PDF_VS_MASTER_PROMPT.md`. Synthèse :
 | `13_DIAGNOSTIC_CINQ_ENVIRONNEMENTS.md` | Protocole de relevé des 5 postes WampServer |
 | `14_PLAN_GITHUB_EQUIPE.md` | Workflow Git, branches, PR, responsabilités des 5 membres |
 | `15_REGISTRE_RISQUES.md` | Risques techniques/métier/pédagogiques avec sévérité/mitigation |
-| `16_DECISIONS_EN_ATTENTE.md` | Décisions ouvertes (dont **D-08 NON TRANCHÉE**), options et conséquences |
+| `16_DECISIONS_EN_ATTENTE.md` | Registre des décisions : D-16 **validée** (2026-10-31), D-08 **Option E validée provisoirement — décision définitive ouverte**, autres décisions ouvertes avec options et conséquences |
 
 ## 5. Décisions techniques proposées (PROPOSITION, sauf mention contraire)
 
@@ -70,7 +70,7 @@ Résultat détaillé : `01_COMPARISON_PDF_VS_MASTER_PROMPT.md`. Synthèse :
 ## 6. Points en attente de validation humaine
 
 Liste complète et conséquences dans `16_DECISIONS_EN_ATTENTE.md`. Bloquants pour la Phase 01 :
-- **D-08 — Départage Amine/Youssef : NON TRANCHÉ** (options présentées, aucune règle choisie ; sans validation, le système devra afficher l'égalité et exiger une revue humaine).
+- **D-08 — Départage Amine/Youssef : Option E validée provisoirement par le propriétaire (2026-10-31)** — Amine 70/100, Youssef 70/100, égalité conservée, aucun départage automatique, les deux profils restent accessibles à la revue humaine. La décision **définitive reste ouverte** (choix A/B/C ou reconduction de E). Aucun score modifié.
 - D-05/D-01b : versions exactes communes PHP & MySQL/MariaDB (relevé 5 postes requis).
 - D-06 : localhost seul vs démonstration LAN ponctuelle.
 - D-10 : parsing CV MVP vs Bonus (recommandation source : Bonus ; upload + saisie vérifiée d'abord).
@@ -83,10 +83,10 @@ Liste complète et conséquences dans `16_DECISIONS_EN_ATTENTE.md`. Bloquants po
 ## 7. Incohérences / divergences détectées
 
 1. **Nom du produit** : PDF metadata et en-têtes = « TalentFlow ATS » ; MP V3 et pack = « SIRH ». Résolu par convention D-01 (nom = SIRH), divergence signalée.
-2. **Départage Amine/Youssef** : PDF = compétences clés (Amine) ; note antérieure utilisateur = expérience/atouts (Youssef). Non tranchée (D-08), gérée par configurabilité + affichage de la règle avant calcul.
+2. **Départage Amine/Youssef** : PDF = compétences clés (Amine) ; note antérieure utilisateur = expérience/atouts (Youssef). Divergence documentée (D-08) ; **Option E retenue provisoirement le 2026-10-31** (égalité + revue humaine, aucun départage automatique) ; décision définitive ouverte ; règle restera configurable et affichée avant calcul.
 3. **Français non documenté** : 0 pt dans le cas pédagogique ≠ « compétence absente » en réalité ; distinction obligatoire dans l'UI (T-10).
 4. **PDF sans texte** : toute citation du PDF repose sur l'OCR ; éléments non confirmés listés dans `01_COMPARISON...md`.
-5. **Périmètre Administration/T-21→T-35/150 candidatures** : présents uniquement dans le MP V3 (et docs du pack), pas retrouvés dans le PDF OCR — acceptés comme exigences contractuelles si D-16 validé.
+5. **Périmètre Administration/T-21→T-35/150 candidatures** : présents uniquement dans le MP V3 (et docs du pack), pas retrouvés dans le PDF OCR — **devenus contractuels au titre de la hiérarchie D-16 (validée 2026-10-31)**, avec provenance documentaire « MP V3 » conservée partout.
 6. **Google Slides du cours** : jamais consultés selon le PDF lui-même ; exigences éventuelles des diapositives inconnues → question ouverte à poser à l'enseignante.
 
 ## 8. Vérification des documents
@@ -103,7 +103,23 @@ Liste complète et conséquences dans `16_DECISIONS_EN_ATTENTE.md`. Bloquants po
 3. Modèle de données conceptuel accepté (liste de tables et relations, `04_...`).
 4. Matrice de permissions acceptée (`05_...`).
 5. Stratégie migrations/sync des 5 bases acceptée (`08_...`).
-6. Décisions ouvertes arbitrées par l'utilisateur — notamment **D-08** (ou maintien explicite de « égalité + revue humaine »).
-7. Validation D-16 (MP V3 comme référence textuelle officielle) et plan de relevé des 5 postes approuvé.
+6. Décisions ouvertes arbitrées par l'utilisateur — notamment **validation définitive de D-08** (l'Option E est déjà actée provisoirement depuis le 2026-10-31 pour les besoins des tests).
+7. ~~Validation D-16~~ **D-16 VALIDÉE le 2026-10-31** (MP V3 = référence textuelle complémentaire officielle, jamais transcription certifiée du PDF) ; reste : plan de relevé des 5 postes approuvé.
 
-**ARRÊT : la Phase 01 ne démarre qu'après validation explicite.**
+## 10. Addenda — corrections de reprise du 2026-10-31 (autorisées par le propriétaire)
+
+| Anomalie | Statut final |
+|---|---|
+| A-01 Classification des tables (`migrations`=technique, `pipeline_transitions`=config, `resumes`=documents/historique ; totaux par catégorie recalculés, total canonique inchangé 64) | **Corrigée** lors du premier cycle (commit `ec3fe79`) — conservée, non recommencée |
+| A-02 Cohérence nomenclature Administration (`admin.permissions.manage`, `interviews.schedule`, module M13 Préférences) | **Corrigée** lors du premier cycle — conservée |
+| A-05 Limites OCR | **Corrigée** : §3 de ce rapport + conclusion de `01_...` — fidélité substantielle confirmée, fidélité intégrale/mot à mot non certifiée |
+| A-06 | **Corrigée** lors du premier cycle (mode démo M12.19/`demo_runs`, T-25 ; seeders ~150 → Phase 09 dans `06_...`) |
+| A-07 Intégrité T-01→T-35 | **Corrigée** : définitions rétablies verbatim depuis MP §42/§43 dans `12_...` ; aucun ID réaffecté ; répercussions dans 03 (déjà conforme), 06, 07, 09, 11, 13 (`04`/`05` vérifiés conformes ; table `application_status_history` harmonisée en doc 12) |
+| A-08 Références de décisions | **Corrigée** : références inexistantes « D-04 » (contrainte) et « D-09 » éliminées ; **D-04b ajouté au registre** (déjà présent, conservé sans modification d'ID) ; D-07 et D-01b ajoutés au registre car référencés ailleurs ; références croisées vérifiées |
+| D-08 | **Option E inscrite comme décision opérationnelle provisoire (2026-10-31)** partout où elle était mentionnée ; scores intacts (Amine 70/100, Youssef 70/100) ; décision définitive ouverte |
+| D-16 | **Validée (2026-10-31)** : hiérarchie 1) décisions du propriétaire 2) PDF (éléments visuellement vérifiables) 3) MP V3 = référence textuelle complémentaire officielle 4) documents d'analyse ; interdiction de présenter le MP V3 comme transcription certifiée du PDF |
+| A-03/A-04 Modèle de données | Catalogue canonique **64 tables** conservé ; **D-24 ouverte** (variante 63 si fusion `evaluation_scores` en JSON) ; aucune table fusionnée |
+
+Contrôle documentaire intégral après corrections : relecture des 17 documents ; 35 tests conformes aux définitions officielles ; toutes les références D-xx existantes ou supprimées ; 64 tables classées et reliées ; cohérence Administration/Rôles/Permissions/Préférences vérifiée ; cinq candidats de référence intacts (90/85/70/70/35) ; périmètres MVP/Bonus/Hors-scope cohérents avec les tests corrigés ; traçabilité exigences→modules→tests bouclée.
+
+**ARRÊT : la Phase 01 ne démarre qu'après validation explicite du propriétaire.**

@@ -20,7 +20,7 @@ Probabilité/Impact : Faible/Moyen/Élevé. Les risques sont suivis par un respo
 | ID | Risque | P | I | Mitigation |
 |---|---|---|---|---|
 | R-09 | Scoring perçu comme automatique/injuste (biais, faux négatifs « non documenté ») | Moyen | Élevé | statuts Oui/non observé/à vérifier ; détail par critère ; revue humaine obligatoire ; démonstration honnête des biais (PDF §12) |
-| R-10 | Départage Amine/Youssef décidé implicitement par le code (**D-08 ouverte**) | Élevé si ignoré | Élevé | `tie_break_rule=NULL` ⇒ égalité affichée + décision humaine motivée ; aucune règle choisie par l'agent |
+| R-10 | Départage Amine/Youssef décidé implicitement par le code (**D-08 : Option E provisoire actée 2026-10-31, décision définitive ouverte**) | Élevé si ignoré | Élevé | `tie_break_rule=NULL` ⇒ égalité affichée + décision humaine motivée ; aucune règle de classement imposée par l'agent ; la décision définitive appartient au propriétaire |
 | R-11 | Non-conformité loi 09-08 en cas d'usage réel (conservation, droits, transferts) | Faible (données fictives) | Élevé | mécanismes prévus (consent_records, retention_policies, registre) ; durées à valider D-19 ; aucun envoi externe sans accord |
 | R-12 | Simulation trompeuse (faux e-mails « envoyés », faux exports, pages décoratives) | Moyen | Élevé | interdiction règle MP 22 + T-27 ; états explicites simulé/prévu/envoyé/échec |
 | R-13 | Périmètre qui dérive vers un SIRH complet | Moyen | Moyen | hors-périmètre écrit `07_...` ; validations utilisateur par phase |

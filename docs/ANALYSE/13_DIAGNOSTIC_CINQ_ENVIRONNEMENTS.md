@@ -26,7 +26,7 @@ Objectif : établir la **vérité technique des 5 postes** avant toute Phase 01 
 
 ## 2. Page de test commune (critère d'acceptation par poste)
 
-En Phase 01 uniquement : script unique versionné testant ① connexion PDO MySQL à une base de test locale ② affichage versions PHP/Apache/MySQL/extensions ③ écriture/lecture fichier dans `storage/` hors DocumentRoot ④ création/lecture/suppression d'une table temporaire de test ⑤ rendu d'une page accentuée UTF-8. Un poste est VALIDÉ quand la page s'affiche sans erreur sur son navigateur local. Résultat attendu identique sur les 5 postes (T-34 en amont).
+En Phase 01 uniquement : script unique versionné testant ① connexion PDO MySQL à une base de test locale ② affichage versions PHP/Apache/MySQL/extensions ③ écriture/lecture fichier dans `storage/` hors DocumentRoot ④ création/lecture/suppression d'une table temporaire de test ⑤ rendu d'une page accentuée UTF-8. Un poste est VALIDÉ quand la page s'affiche sans erreur sur son navigateur local (critère directement lié à T-29 : démarrage WampServer via localhost). Résultat attendu identique sur les 5 postes, vérifié en amont par T-33 (script SQL + migrations installent une base vierge sur chacun des cinq PC) ; la synchronisation continue des schémas/version/seeders entre postes relève du contrôle permanent §30 du MP et des revues d'équipe (`14_PLAN_GITHUB_EQUIPE.md`).
 
 ## 3. Arbitrages dépendant du relevé (décisions attendues)
 

@@ -23,7 +23,7 @@ Statuts utilisés : `CONFIRMÉ PAR SOURCE` (présent dans PDF-OCR ET MP V3) · `
 | p10-11 — §9 Grille 100 pts (Formation 20, Exp 20, SEO/RS/GA/Excel 10, Français 10, Canva+CRM 5×2) | §18 table identique | CONFIRMÉ |
 | p10-11 — Résultats : Nadia 90, Salma 85, Amine 70, Youssef 70, Imane 35 + hypothèses (finance Imane non liée, 4 compétences clés ×10, français non documenté = 0, Canva/CRM 5) | §18 identique | CONFIRMÉ |
 | p11 — Interprétation « non documenté ≠ compétence absente » | §18 traitement données manquantes | CONFIRMÉ |
-| p11 — Départage : règle annoncée avant notation → compétences clés (Amine 40/40 vs Youssef 20/40) ; shortlist proposée Nadia, Salma, Amine ; sinon revue humaine | §18 « Égalité Amine/Youssef » + signalement divergence note antérieure | CONFIRMÉ (divergence avec note utilisateur = D-08 NON TRANCHÉE) |
+| p11 — Départage : règle annoncée avant notation → compétences clés (Amine 40/40 vs Youssef 20/40) ; shortlist proposée Nadia, Salma, Amine ; sinon revue humaine | §18 « Égalité Amine/Youssef » + signalement divergence note antérieure | CONFIRMÉ (divergence avec note utilisateur = D-08 ; Option E validée provisoirement le 2026-10-31, décision définitive ouverte) |
 | p11-12 — §10 Pipeline 8 étapes + transitions + comportement Kanban | §20 | CONFIRMÉ |
 | p12-13 — §11 Entretiens : planification, statuts, conflits ; grille évaluation 1–5 (5 critères + recommandation) ; simulation vidéo différée | §21 | CONFIRMÉ |
 | p13-14 — §12 IA : niveau 1 automatisation explicable (recommandé MVP), niveau 2 fonctions IA facultatives (résumé CV, matching sémantique, questions, rédaction, recherche NL) ; risques (mot-clé absent, biais, fausse précision 82/100, seuil…) ; mesures ; phrase à défendre | §18 équité/limites + Partie IX §41 | CONFIRMÉ |
@@ -41,7 +41,7 @@ Statuts utilisés : `CONFIRMÉ PAR SOURCE` (présent dans PDF-OCR ET MP V3) · `
 
 ## Éléments du MP V3 non retrouvés dans le PDF (AJOUT MP V3)
 
-Ces éléments proviennent des exigences « partagées dans la conversation » organisées par le MP (règle 1 du MP) et sont traités comme contractuels si l'utilisateur valide D-16 :
+Ces éléments proviennent des exigences « partagées dans la conversation » organisées par le MP (règle 1 du MP). **D-16 étant validée le 2026-10-31**, ils sont contractuels au titre de référence textuelle complémentaire officielle, en conservant leur provenance « MP V3 » (aucune attribution au PDF) :
 1. Nommage projet **SIRH** et dossier WampServer cible (`C:\wamp64\www\SIRH`).
 2. Interdiction totale d'hébergement Internet/Cloud ; GitHub = versionnement seul.
 3. Partie V complète : centre Administration §24.1→24.19 et préférences personnelles §25.
@@ -68,4 +68,4 @@ Ces éléments proviennent des exigences « partagées dans la conversation » o
 - Mise en forme, logos, captures éventuelles du PDF : non analysables par OCR texte.
 - Pages 22-23 : quelques lignes bruitées ; sens général recoupé avec MP §Phase 0 « décisions à confirmer ».
 
-**Conclusion** : le MP V3 est retenu comme référence textuelle de travail (validation utilisateur). Sa fidélité substantielle au PDF est confirmée sur tout le périmètre fonctionnel critique ; elle n'est **pas certifiée intégrale**. Les ajouts du MP sont listés ci-dessus et soumis à validation (D-16).
+**Conclusion** : le MP V3 est retenu comme **référence textuelle complémentaire officielle** du projet (validation explicite du propriétaire du projet, D-16, 2026-10-31). Sa fidélité substantielle au PDF est confirmée sur tout le périmètre fonctionnel critique ; elle n'est **pas certifiée intégrale ni mot à mot** (limites OCR détaillées ci-dessus). Le MP V3 ne doit **jamais** être présenté comme une transcription certifiée et intégrale du PDF original : les ajouts qui ne figurent pas dans le PDF (Administration §24, T-21→T-35, confidentialité, etc., listés plus haut) conservent leur provenance documentaire propre (« MP V3 ») dans tous les livrables.

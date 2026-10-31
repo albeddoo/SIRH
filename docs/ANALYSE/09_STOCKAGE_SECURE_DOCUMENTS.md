@@ -21,7 +21,7 @@ Si l'hébergement se fait à la racine du projet au lieu de `public/` : règles 
 ## 3. Cycle de vie d'un dépôt (upload)
 
 1. Formulaire : affichage nom/taille acceptés ; limites serveur alignées (`upload_max_filesize`, `post_max_size`, `memory_limit`, temps exécution relevés sur chaque poste).
-2. Contrôles serveur : taille max configurable ; liste extensions autorisées **ET vérification du type réel/MIME côté serveur** (pas la seule extension déclarée par le navigateur) ; fichiers PHP/exécutables refusés (T-06/T-29).
+2. Contrôles serveur : taille max configurable ; liste extensions autorisées **ET vérification du type réel/MIME côté serveur** (pas la seule extension déclarée par le navigateur) ; fichiers PHP/exécutables refusés (T-06 ; contrôle de revue sécurité, sans ID officiel — cf. `12_...` note de complétude).
 3. Écriture : nom interne **aléatoire cryptographique** sans dépendre du nom fourni ; dossier de destination non exécutable (permissions Apache « pas de handler ») ; écriture hors DocumentRoot ; checksum SHA-256 calculé.
 4. Métadonnées en base (`storage_objects` + `candidate_documents`) : nom original conservé comme libellé affiché, taille, MIME réel, propriétaire, entité liée, date/auteur, statut (actif/archivé/supprimé/anonymisé).
 5. Échec : message compréhensible, aucun fichier partiel conservé, journalisation technique sans secret.
@@ -53,4 +53,4 @@ Stockage chiffré au repos, durée de conservation courte définie, information 
 
 ## 9. Vérifications prévues (Phase 01+)
 
-Test direct des URLs interdites (T-35) ; upload fichier déguisé .php→refus (T-29) ; gros fichier→rejet propre (T-06) ; accès croisé entre rôles (T-26) ; intégrité après restauration (T-34).
+Test direct des URLs interdites (T-35) ; upload fichier déguisé .php→refus (T-06 + revue sécurité) ; gros fichier→rejet propre (T-06) ; accès croisé entre rôles (T-26) ; intégrité après restauration (T-34).

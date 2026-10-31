@@ -51,7 +51,7 @@ Sources : PDF §15 + MP V3 §33–35 (`CONFIRMÉ PAR SOURCE`). Ce document est *
 ### Scoring (versionné, explicable)
 | Table | Rôle | Contraintes |
 |---|---|---|
-| `scoring_templates` | Modèles de grille | nom, version, validée_par/at, published_at, archived_at ; somme poids = 100 (règle explicite alternative paramétrable) ; règle de départage active (NULL tant que D-08 non tranché → égalité + revue humaine) |
+| `scoring_templates` | Modèles de grille | nom, version, validée_par/at, published_at, archived_at ; somme poids = 100 (règle explicite alternative paramétrable) ; règle de départage active (`NULL` = Option E provisoire D-08, 2026-10-31 : égalité + revue humaine ; décision définitive ouverte) |
 | `scoring_criteria` | Critères pondérés | template_id FK, libellé, poids, type (obligatoire/souhaité/informatif), règle/paramètres JSON logique, seuils indicatifs, priorité départage |
 | `application_scores` | Score total | application_id, template_version_id, total, déclenché par/date, mode (auto/manuel), **figé à la date de calcul** |
 | `score_details` | Points par critère | score_id FK, criterion_id, points, statut_donnée ENUM(oui,non_observe,a_verifier,absence_confirmee,sans_objet), justification/preuve, champ_source |
@@ -116,7 +116,7 @@ Diagramme textuel (regroupements) :
 | `applications.numero_candidature` | exposé au portail local (confirmation) ; non séquentiel prévisible (PROPOSITION) |
 | `candidates.*` | données personnelles : minimisation, finalité recrutement, conservation bornée |
 | `score_details.statut_donnée` | cœur de l'honnêteté algorithmique : « non documenté » ≠ 0 définitif hors cas pédagogique |
-| `scoring_templates.version+règle_départage` | fige la règle au moment du calcul ; D-08 = NULL jusqu'à validation |
+| `scoring_templates.version+règle_départage` | fige la règle au moment du calcul ; D-08 : `NULL` retenu provisoirement (Option E, 2026-10-31) jusqu'à validation définitive |
 | `messages.statut` | « envoyé » interdit sans acquittement réel du service (T-27) |
 | `storage_objects.nom_interne` | aléatoire cryptographique ; nom original conservé comme métadonnée affichée |
 | dates | UTC en base ; conversion fuseau à l'affichage uniquement |
@@ -211,7 +211,7 @@ Convention explicite : `tags` est classée **référence** (§5.4), `application
 | 63 | demo_runs | journal réinitialisations démo |
 | 64 | evaluation_scores | notes par critère reliées à interview_evaluations (détail historisé) |
 
-*(Note : settings/pipeline_transitions/resumes relèvent d'une double classification config/historique ; elles sont comptées ici une seule fois. `evaluation_scores` découle explicitement de la ligne « notes par critère (→ evaluation_scores) » du §2 ; si l'utilisateur préfère la stocker en JSON dans `interview_evaluations`, le total canonique deviendrait 63 — à trancher en Phase 01, noté au registre D-24.)*
+*(Note : settings/pipeline_transitions/resumes relèvent d'une double classification config/historique ; elles sont comptées ici une seule fois. `evaluation_scores` découle explicitement de la ligne « notes par critère (→ evaluation_scores) » du §2 ; si l'utilisateur préfère la stocker en JSON dans `interview_evaluations`, le total canonique deviendrait 63 — variante à 63 tables inscrite au registre sous **D-24 (ouverte — aucune fusion sans validation explicite du propriétaire)** ; le catalogue canonique documenté reste celui des **64 tables**.)*
 
 ### 5.6 Total canonique et justification
 - **Total retenu : 64 tables nommées distinctes** dans le modèle logique (dont 1 purement technique hors périmètre métier : `migrations`).

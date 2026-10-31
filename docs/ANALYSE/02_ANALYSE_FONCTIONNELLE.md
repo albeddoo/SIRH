@@ -89,7 +89,7 @@ Règle de navigation : menu adapté au rôle ; **chaque route/fichier/export vé
 ### Scoring / présélection (voir `10_ARCHITECTURE_IA.md`)
 - Grille pédagogique 100 pts, résultats de référence Nadia 90 / Salma 85 / Amine 70 / Youssef 70 / Imane 35 (`CONFIRMÉ PAR SOURCE`).
 - Toute correction manuelle : motif + auteur + date + ancienne/nouvelle valeur ; scores historiques liés à leur version de grille.
-- Départage Amine/Youssef : **divergence ouverte D-08**, règle active affichée avant calcul ; sans règle validée → égalité + revue humaine.
+- Départage Amine/Youssef : **D-08 — Option E validée provisoirement (2026-10-31)** : égalité conservée (70/100 chacun), aucun départage automatique, revue humaine possible ; règle active toujours affichée avant calcul ; décision définitive ouverte.
 
 ### Pipeline/Kanban
 - 8 étapes avec objectifs et transitions définies (détail §20 MP) ; glisser-déposer soumis à permission de transition ; confirmation pour transitions importantes ; historique ancien→nouveau statut/auteur/date/motif ; compteurs par colonne ; filtres offre/recruteur ; vue tableau complémentaire ; aucune disparition sans motif ni historique.

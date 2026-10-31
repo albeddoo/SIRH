@@ -32,8 +32,8 @@ Chaque exécution produit pour chaque critère : points obtenus, **statut de la 
 Formation 20 / Expérience 20 / SEO 10 / Réseaux sociaux 10 / Google Analytics 10 / Excel 10 / Français professionnel 10 / Canva 5 / CRM 5 = 100.
 Hypothèses figées par la source : finance Imane ≠ domaine lié ; 4 compétences clés ×10 ; français non documenté dans les 5 profils → 0 selon barème de l'exercice (signalé « non documenté », T-10) ; résultats attendus **Nadia 90, Salma 85, Amine 70, Youssef 70, Imane 35** (T-08).
 
-### 2.4 Égalités et départage — **D-08 NON TRANCHÉE**
-Comportement par défaut proposé aux documents (sans trancher pour l'utilisateur) : `tie_break_rule = NULL` ⇒ le moteur affiche l'égalité (Amine 70 = Youssef 70) et exige une décision humaine motivée. Si une règle est validée, elle est stockée en paramètre versionné de la grille, **affichée avant tout calcul** et appliquée de façon démontrable. Options complètes et conséquences : `16_DECISIONS_EN_ATTENTE.md`.
+### 2.4 Égalités et départage — **D-08 : Option E validée provisoirement (2026-10-31), décision définitive ouverte**
+**Option E validée provisoirement par le propriétaire (2026-10-31)** — règle opérationnelle pour les tests ; décision définitive ouverte. Comportement retenu : `tie_break_rule = NULL` ⇒ le moteur affiche l'égalité (Amine 70 = Youssef 70) et exige une décision humaine motivée. Si une règle est validée, elle est stockée en paramètre versionné de la grille, **affichée avant tout calcul** et appliquée de façon démontrable. Options complètes et conséquences : `16_DECISIONS_EN_ATTENTE.md`.
 
 ### 2.5 Recalculs et historique
 Recalcul = action explicite auditable créant une nouvelle ligne `application_scores` liée à sa version de grille ; l'historique n'est jamais écrasé (T-24) ; modification de poids ⇒ nouvelle version de grille (T-09) ; seuils = **indicateurs de revue manuelle**, jamais de rejet automatique (règle non négociable MP).

@@ -72,4 +72,4 @@ Règles : création par admin ou inscription contrôlée ; activation par lien/c
 
 ## 7. Décision ouverte impactant la matrice
 
-- **D-08** : quelle que soit la règle retenue, elle est stockée comme paramètre de grille versionné, modifiable uniquement par rôle autorisé, avec affichage obligatoire de la règle active avant tout calcul de classement. En attendant : `tie_break_rule = NULL` → le moteur doit afficher l'égalité et exiger une décision humaine motivée.
+- **D-08** : quelle que soit la règle retenue, elle est stockée comme paramètre de grille versionné, modifiable uniquement par rôle autorisé, avec affichage obligatoire de la règle active avant tout calcul de classement. **Option E validée provisoirement (D-08, 2026-10-31)** : `tie_break_rule = NULL` → le moteur affiche l'égalité (Amine 70/100 = Youssef 70/100) et exige une décision humaine motivée ; décision définitive de D-08 toujours ouverte.
