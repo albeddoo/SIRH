@@ -40,8 +40,67 @@ Rapports : dashboard analytique, offre/période/recruteur, shortlist+scores, ent
 Cas DMS intégré comme jeu de démonstration réinitialisable : offre Chargé(e) Marketing Digital Junior, barème fourni, cinq profils exacts, calcul et égalité, justification des trois retenus, démonstration biais (synonyme inconnu/langue non documentée), scénarios T-08→T-11 ; ~150 candidatures fictives au total (seeders, Phase 09).
 
 ## M12. Centre Administration (MP §24.1→24.19) (`CONFIRMÉ MP`)
-Accueil admin (santé système, versions, extensions, tâches critiques, avertissements) ; utilisateurs (liste états, création, invitation expirante, rôles multiples, suspension temporaire, réactivation tracée, transfert permissions dernier admin) ; rôles/permissions (matrice, rôles personnalisés, prévisualisation effective, interdiction retirer dernier admin actif, audit complet) ; entreprise/marque (nom, logo contrôlé type/taille, coordonnées, couleurs, pied de page, aperçu) ; langue/date/fuseau (formats, fuseau défaut Africa/Casablanca, traductions complètes sinon masquées, RTL testé) ; référentiels (villes, départements, catégories/familles, niveaux, archivage sans suppression si utilisée) ; offres/contrats (types, temps, modèles, champs obligatoires optionnels) ; pipeline (étapes/ordre/transitions/motifs finaux/confirmation requise, historique préservé) ; scoring (modèles/critères/poids/synonymes/équivalences/manquants/seuils indicatifs/**règle de départage**/version/validation/auteur, interdiction d'écraser anciens scores) ; modèles d'entretiens (types/durées/questions/grilles/versions) ; notifications (templates, déclencheurs, variables, fréquence rappels, aperçu/test, statut fournisseur, pas de faux « envoyé ») ; fichiers/conservation (extensions/MIME réels/tailles/stockage hors public/propriétaires/durées/archivage/suppression planifiée/anonymisation) ; confidentialité (notices, finalités, consentement si requis, demandes d'accès, registre des traitements local) ; sécurité/sessions (politiques mdp robustes mais utilisables, expiration, révocations, verrouillage après tentatives, HTTPS local si pertinent, journaux sans secrets) ; IA/intégrations (fournisseur désactivé par défaut, périmètre local, clés chiffrées/non affichées, revue humaine obligatoire, journalisation) ; exports/modèles (colonnes/filtres/logo/pied/nommage, permissions préalables, traçabilité) ; audit (utilisateur/action/objet/ancien-nouveau/ip locale/résultat/date, filtres/export autorisé, **append-only**, sans mots de passe ni CV complets) ; sauvegarde/restauration (SQL+storage, fréquence/rétention/emplacement/nommage/responsable, ne pas écraser dernière valide avant vérification, restauration testée sur base séparée, chiffrement si données personnelles) ; mode démo (périmètre clairement marqué, réinitialisation limitée rôle autorisé avec double confirmation, jamais production, registre demo_runs).
-Règles communes §26 : valeurs initiales raisonnables ; validation avant enregistrement ; confirmation impact fort ; qui/quand/quoi ; reset par défaut avec confirmation+sauvegarde ; paramètres dans la base, pas en dur.
+
+Présentation structurée en 19 sous-modules numérotés A-1 → A-19 (correspondance exacte §24.x du MP V3), chacun avec contenu, règles et contrôles :
+
+### A-1 (§24.1) Tableau de bord Administration
+Santé système, versions PHP/MySQL/migrations, extensions requises, tâches critiques en attente, avertissements. Lecture admin ; aucune action décorative.
+
+### A-2 (§24.2) Gestion des utilisateurs et invitations
+Liste avec états (invité/en attente/actif/suspendu/désactivé) ; création ; invitation expirante ; rôles multiples ; suspension temporaire réversible tracée ; réactivation tracée ; transfert de permissions si dernier admin actif. Permission `admin.users.manage`.
+
+### A-3 (§24.3) Gestion des rôles et permissions
+Matrice rôles↔permissions ; rôles personnalisés ; prévisualisation de l'accès effectif d'un utilisateur ; interdiction de retirer le dernier administrateur actif sans procédure de transfert validée ; audit complet de toute modification (T-16/T-22). Permission `admin.roles.manage`.
+
+### A-4 (§24.4) Entreprise, identité et marque
+Nom, logo (contrôle type/taille), coordonnées, couleurs, pied de page, aperçu avant application.
+
+### A-5 (§24.5) Langue, date, heure et fuseau horaire
+Langue par défaut dans les langues testées (D-15) ; formats date/heure/nombre ; fuseau par défaut Africa/Casablanca ; traductions complètes sinon masquées ; RTL testé si arabe activé (T-20).
+
+### A-6 (§24.6) Référentiels et taxonomies
+Villes, départements, catégories/familles de postes, niveaux, sources… ; archivage sans suppression si entité utilisée.
+
+### A-7 (§24.7) Paramètres des offres et contrats
+Types de contrat, temps de travail, modèles de fiches de poste, champs obligatoires/optionnels paramétrés.
+
+### A-8 (§24.8) Administration du pipeline
+Étapes, ordre, transitions permises par rôle, motifs finaux normalisés, confirmation requise par transition ; historique préservé ; jamais de suppression d'une étape utilisée.
+
+### A-9 (§24.9) Administration du scoring
+Modèles de grilles, critères, poids (somme validée), synonymes/équivalences contrôlés, traitement des données manquantes, seuils indicatifs (jamais de rejet automatique), **règle de départage** (NULL tant que D-08 non tranchée), versionnement/validation/auteur ; interdiction d'écraser les anciens scores (T-09/T-24).
+
+### A-10 (§24.10) Modèles d'entretiens et évaluations
+Types d'entretien, durées, banques de questions, grilles d'évaluation 1–5, versions et auteurs.
+
+### A-11 (§24.11) Notifications et modèles de communication
+Templates multi-langues, événements déclencheurs, variables autorisées, fréquence des rappels, aperçu/test ; statut réel du fournisseur e-mail affiché ; **pas de faux « envoyé »** (T-27).
+
+### A-12 (§24.12) Fichiers et conservation
+Extensions/MIME réels/tailles maximales ; stockage hors DocumentRoot ; propriétaires ; durées de conservation (`retention_policies`, D-19) ; archivage ; suppression planifiée ; anonymisation possible pour statistiques.
+
+### A-13 (§24.13) Confidentialité et protection des données
+Notices d'information, finalités, consentement si requis, demandes d'accès/rectification (traitement manuel au MVP), registre des traitements local (loi 09-08, cf. `11_...`).
+
+### A-14 (§24.14) Sécurité, sessions et mots de passe
+Politiques de mot de passe robustes mais utilisables ; expiration de session ; révocations multi-périphériques ; verrouillage après tentatives ; HTTPS local si pertinent ; journaux sans secrets.
+
+### A-15 (§24.15) IA et intégrations
+Fournisseur IA externe désactivé par défaut (D-18) ; périmètre local ; clés chiffrées jamais affichées ; revue humaine obligatoire des sorties ; journalisation des appels.
+
+### A-16 (§24.16) Exports et modèles de rapports
+Configuration colonnes/filtres/logo/pied de page/nommage ; permissions vérifiées avant génération ; traçabilité des exports sensibles ; neutralisation formules Excel (T-15).
+
+### A-17 (§24.17) Journal d'audit
+Colonnes utilisateur/action/objet (table+id)/ancien-nouveau/IP locale/résultat/date ; filtres et export réservés à un rôle habilité ; **append-only** (aucune édition via l'UI) ; exclusion stricte des mots de passe, tokens complets et contenus de CV.
+
+### A-18 (§24.18) Sauvegardes et état du système
+Sauvegarde SQL + storage (fréquence/rétention/emplacement/nommage/responsable paramétrés) ; ne pas écraser la dernière sauvegarde valide avant vérification ; restauration testée sur base séparée (T-28/T-34) ; chiffrement recommandé si données personnelles réelles ; état technique des migrations par poste.
+
+### A-19 (§24.19) Mode démonstration et réinitialisation
+Périmètre démo clairement marqué ; réinitialisation limitée à un rôle autorisé avec double confirmation ; **jamais sur la production** (T-25) ; registre `demo_runs` (déclencheur, périmètre supprimé, résultat).
+
+Règles communes §26 : valeurs initiales raisonnables ; validation avant enregistrement ; confirmation pour tout impact fort ; qui/quand/quoi systématique ; reset par défaut avec confirmation + sauvegarde préalable ; paramètres stockés en base, jamais en dur.
 
 ## M13. Préférences personnelles (MP §25)
 Profil (nom affichage, contact, photo professionnelle éventuelle, mdp) ; préférences (langue dans langues testées, thème, fuseau, formats date/heure/nombre, widgets dashboard, colonnes/filtres favoris, notifications internes, tris par défaut) ; sécurité personnelle (sessions actives révocables, historique connexions) ; **aucun effet sur permissions** ; isolation stricte (T-23).

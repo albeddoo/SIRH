@@ -121,18 +121,104 @@ Diagramme textuel (regroupements) :
 | `storage_objects.nom_interne` | aléatoire cryptographique ; nom original conservé comme métadonnée affichée |
 | dates | UTC en base ; conversion fuseau à l'affichage uniquement |
 
-## 5. Catalogue synthétique (~45 tables)
+## 5. Catalogue canonique des tables (recompté et classifié — correction A-03/A-04)
 
-Accès : users, roles, permissions, role_permissions, user_roles, sessions, user_invitations, user_preferences.
-Organisation : companies, departments, cities, contract_types, work_time_types, sources, job_families.
-Offres : jobs, job_requirements.
-Candidats : candidates, educations, experiences, skills, skill_aliases, candidate_skills, candidate_languages, resumes, candidate_documents, favorites, tags, application_tags.
-Candidatures : applications, pipeline_stages, pipeline_transitions, pipeline_history, application_notes.
-Scoring : scoring_templates, scoring_criteria, application_scores, score_details, score_adjustments.
-Entretiens : interviews, interviewers, interview_questions, evaluation_templates, evaluation_criteria, interview_evaluations, video_sessions.
-Communication : messages, notification_templates, internal_notifications.
-Reporting : exports, saved_report_templates.
-Technique/conformité : audit_logs, settings, setting_versions, retention_policies, consent_records, storage_objects, feature_flags, demo_runs, referentiels motifs (refusal_reasons…).
+Recompte officiel effectué lors de l'audit documentaire : le catalogue ci-dessous est la **référence canonique**. Les mentions « ~35 » ou « ~45 » antérieures sont remplacées par ce décomptage justifié. Distinction : tables **métier**, de **liaison**, de **référence**, techniques, d'**audit/historique**.
+
+### 5.1 Tables métier (26)
+| # | Table | Classification |
+|---|---|---|
+| 1 | users | métier |
+| 2 | user_preferences | métier |
+| 3 | user_invitations | métier |
+| 4 | companies | métier |
+| 5 | departments | métier |
+| 6 | jobs | métier |
+| 7 | job_requirements | métier |
+| 8 | candidates | métier |
+| 9 | educations | métier |
+| 10 | experiences | métier |
+| 11 | applications | métier |
+| 12 | application_notes | métier |
+| 13 | scoring_templates | métier (versionné) |
+| 14 | scoring_criteria | métier (versionné) |
+| 15 | application_scores | audit/historique (scoré figé) |
+| 16 | score_details | audit/historique |
+| 17 | score_adjustments | audit/historique (corrections motivées) |
+| 18 | interviews | métier |
+| 19 | interview_questions | métier (modèles versionnés) |
+| 20 | evaluation_templates | métier (versionné) |
+| 21 | evaluation_criteria | métier (versionné) |
+| 22 | interview_evaluations | métier |
+| 23 | video_sessions | métier (simulation D-12) |
+| 24 | messages | métier |
+| 25 | notification_templates | métier |
+| 26 | internal_notifications | métier |
+
+### 5.2 Tables de liaison (10)
+| # | Table | Relie / rôle |
+|---|---|---|
+| 27 | roles | référentiel d'accès lié via user_roles/role_permissions |
+| 28 | permissions | référentiel d'accès lié via role_permissions |
+| 29 | role_permissions | roles ↔ permissions |
+| 30 | user_roles | users ↔ roles (+ scope éventuel) |
+| 31 | skills | référentiel compétences lié via candidate_skills/job_requirements |
+| 32 | candidate_skills | candidates ↔ skills |
+| 33 | candidate_languages | candidates ↔ languages |
+| 34 | favorites | users ↔ applications/candidates (favoris) |
+| 35 | application_tags | applications ↔ tags |
+| 36 | interviewers | interviews ↔ users (participants, unique interview+user) |
+
+Convention explicite : `tags` est classée **référence** (§5.4), `application_tags` est la **liaison**. Aucune table n'est comptée deux fois.
+
+### 5.3 Tables techniques (4)
+| # | Table | Rôle |
+|---|---|---|
+| 37 | sessions | révocation serveur (MP §32/§33) |
+| 38 | storage_objects | métadonnées fichiers privés (`09_...`) |
+| 39 | feature_flags | activation contrôlée fonctions/démo/bonus |
+| 40 | **migrations** | table technique de suivi des migrations SQL (`version PRIMARY KEY, applied_at, checksum`) — voir §5.6 (correction A-04) |
+
+### 5.4 Tables de référence (11)
+| # | Table | Contenu |
+|---|---|---|
+| 41 | cities | référentiel villes |
+| 42 | contract_types | types de contrat |
+| 43 | work_time_types | temps de travail |
+| 44 | sources | origines des candidatures |
+| 45 | job_families | familles de postes |
+| 46 | languages | référentiel langues |
+| 47 | levels | niveaux (formation/compétence/langue) |
+| 48 | pipeline_stages | étapes administrables |
+| 49 | tags | étiquettes (référentiel) |
+| 50 | refusal_reasons | motifs normalisés |
+| 51 | skill_aliases | synonymes contrôlés (référentiel administré) |
+
+### 5.5 Tables d'audit / historique / conformité / config (13)
+| # | Table | Rôle |
+|---|---|---|
+| 52 | pipeline_transitions | règles de transition (config auditable) |
+| 53 | pipeline_history | historique statuts (append) |
+| 54 | resumes | CV versions (historique documents) |
+| 55 | candidate_documents | pièces jointes rattachées (métadonnées via storage_objects) |
+| 56 | exports | journal des exports |
+| 57 | saved_report_templates | modèles d'export persistés |
+| 58 | audit_logs | journal append-only global |
+| 59 | settings | paramètres globaux (config) |
+| 60 | setting_versions | historique valeurs sensibles |
+| 61 | retention_policies | durées de conservation (D-19) |
+| 62 | consent_records | information/consentement horodatés |
+| 63 | demo_runs | journal réinitialisations démo |
+| 64 | evaluation_scores | notes par critère reliées à interview_evaluations (détail historisé) |
+
+*(Note : settings/pipeline_transitions/resumes relèvent d'une double classification config/historique ; elles sont comptées ici une seule fois. `evaluation_scores` découle explicitement de la ligne « notes par critère (→ evaluation_scores) » du §2 ; si l'utilisateur préfère la stocker en JSON dans `interview_evaluations`, le total canonique deviendrait 63 — à trancher en Phase 01, noté au registre D-24.)*
+
+### 5.6 Total canonique et justification
+- **Total retenu : 64 tables nommées distinctes** dans le modèle logique (dont 1 purement technique hors périmètre métier : `migrations`).
+- Répartition exacte : **26 métier · 10 liaison · 4 techniques · 11 référence · 13 audit/historique/conformité/config = 64**.
+- Justification du nombre supérieur aux « ~35 » évoqués en Phase 00 initiale : le MP V3 impose des exigences supplémentaires non présentes dans le PDF (user_preferences, sessions, storage_objects, retention_policies, consent_records, setting_versions, feature_flags, demo_runs, skill_aliases, video_sessions…), chacune nécessitant sa propre table pour respecter les règles de traçabilité, versionnement et séparation des responsabilités. Forcer artificiellement le chiffre à 35 aurait conduit à fusionner des tables et casser ces règles.
+- La table `migrations` (A-04) est **explicitement classée technique d'infrastructure** : elle ne fait pas partie du domaine métier mais figure au catalogue pour l'exhaustivité ; elle est créée par le lot 0001 (`08_...` §2).
+- Toute évolution (ex. import massif Bonus : `import_jobs`/`import_rows`, portail authentifié) ajoutera des tables **par nouvelle décision validée**, jamais silencieusement.
 
 Chaque table sera matérialisée en migrations ordonnées en Phase 01+ (plan : `08_MIGRATIONS_ET_SYNCHRONISATION.md`).
 

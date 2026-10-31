@@ -15,7 +15,7 @@ Objectif : établir la **vérité technique des 5 postes** avant toute Phase 01 
 | 5 | PHP actif (version exacte, ordre php.ini utilisé) | `php -v`, page info Wamp |
 | 6 | Extensions PHP requises : pdo_mysql, mbstring, intl, gd ou équivalent pour PDF, zip, fileinfo, openssl, curl (local only) | `php -m` |
 | 7 | Limites upload/mémoire/exécution : upload_max_filesize, post_max_size, memory_limit, max_execution_time, max_file_uploads | phpinfo |
-8 | MySQL : service démarré, version exacte, port 3306 libre, moteur InnoDB, collation disponible utf8mb4 | `mysql --version`, `SHOW VARIABLES LIKE 'character_set_server'`… |
+| 8 | MySQL : service démarré, version exacte, port 3306 libre, moteur InnoDB, collation disponible utf8mb4 | `mysql --version`, `SHOW VARIABLES LIKE 'character_set_server'`… |
 | 9 | Autres bases/projects présents dans `www` et `mysql` (à NE PAS écraser) | listing dossiers + `SHOW DATABASES` |
 | 10 | Git version + SSH clé GitHub + accès dépôt privé | `git --version`, `ssh -T git@github.com` |
 | 11 | Composer version | `composer --version` |

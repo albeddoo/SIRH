@@ -46,7 +46,26 @@ Offre → Candidature → Profil candidat → Vérification → Scoring → Shor
 9. **Communications** : modèles d'e-mails ; invitations et rappels ; messages refus/offre ; historique ; centre de notifications internes.
 10. **Rapports & exports** : dashboard analytique ; rapports offre/période/recruteur ; shortlist et scores ; entretiens ; audit ; aperçu PDF ; export Excel.
 11. **Étude de cas** : cas DMS ; fiche de poste et barème ; cinq profils ; calcul et égalité ; justification des trois entretiens ; biais et corrections.
-12. **Administration** (sous-modules 24.1→24.19, voir `06_MODULES.md`) : tableau de bord admin, utilisateurs/invitations, rôles/permissions, entreprise/marque, langue/date/fuseau, référentiels, offres/contrats, pipeline, scoring, modèles d'entretiens, notifications, fichiers/conservation, confidentialité, sécurité/sessions, IA/intégrations, exports/modèles, audit, sauvegardes/état, mode démo.
+12. **Administration** (19 sous-modules numérotés A-1 → A-19, correspondant aux §24.1→24.19 du MP V3 — détail complet dans `06_MODULES.md` M12) :
+    - A-1 (§24.1) Tableau de bord admin (santé système, versions, extensions, tâches critiques, avertissements)
+    - A-2 (§24.2) Utilisateurs et invitations (liste états, création, invitation expirante, rôles multiples, suspension/réactivation tracées, transfert du dernier admin)
+    - A-3 (§24.3) Rôles et permissions (matrice, rôles personnalisés, prévisualisation effective, interdiction retirer le dernier admin actif, audit)
+    - A-4 (§24.4) Entreprise et image de marque (nom, logo contrôlé, coordonnées, couleurs, pied de page, aperçu)
+    - A-5 (§24.5) Langue, formats de date et fuseau horaire
+    - A-6 (§24.6) Référentiels (villes, départements, catégories/familles, niveaux, archivage sans suppression si utilisés)
+    - A-7 (§24.7) Offres et contrats (types de contrat, temps de travail, modèles, champs obligatoires/optionnels)
+    - A-8 (§24.8) Pipeline (étapes, ordre, transitions, motifs finaux, confirmation requise, historique préservé)
+    - A-9 (§24.9) Scoring (modèles, critères, poids, synonymes/équivalences, données manquantes, seuils indicatifs, règle de départage, version/validation/auteur)
+    - A-10 (§24.10) Modèles d'entretiens (types, durées, questions, grilles, versions)
+    - A-11 (§24.11) Notifications (templates, déclencheurs, variables, fréquence rappels, aperçu/test, statut fournisseur réel)
+    - A-12 (§24.12) Fichiers et conservation (extensions/MIME réels/tailles, stockage hors public, durées, archivage, suppression planifiée, anonymisation)
+    - A-13 (§24.13) Confidentialité et protection des données (notices, finalités, consentement si requis, demandes d'accès, registre des traitements local)
+    - A-14 (§24.14) Sécurité, sessions et mots de passe (politiques mdp robustes mais utilisables, expiration, révocations, verrouillage après tentatives, journaux sans secrets)
+    - A-15 (§24.15) IA et intégrations (fournisseur désactivé par défaut, périmètre local, clés chiffrées non affichées, revue humaine obligatoire, journalisation)
+    - A-16 (§24.16) Exports et modèles de rapports (colonnes, filtres, logo, pied de page, nommage, permissions préalables, traçabilité)
+    - A-17 (§24.17) Journal d'audit (utilisateur/action/objet/ancien-nouveau/IP locale/résultat/date, filtres/export autorisé, **append-only**, sans mots de passe ni CV complets)
+    - A-18 (§24.18) Sauvegardes et état du système (SQL+storage, fréquence/rétention/emplacement/nommage/responsable, restauration testée sur base séparée, santé technique)
+    - A-19 (§24.19) Mode démonstration et réinitialisation (périmètre clairement marqué, réinitialisation limitée rôle autorisé + double confirmation, jamais production, registre demo_runs)
 + **Mon profil / Mes préférences** (§25) pour tout utilisateur connecté.
 
 Règle de navigation : menu adapté au rôle ; **chaque route/fichier/export vérifie la permission côté serveur** (`CONFIRMÉ PAR SOURCE`).
@@ -76,7 +95,7 @@ Règle de navigation : menu adapté au rôle ; **chaque route/fichier/export vé
 - 8 étapes avec objectifs et transitions définies (détail §20 MP) ; glisser-déposer soumis à permission de transition ; confirmation pour transitions importantes ; historique ancien→nouveau statut/auteur/date/motif ; compteurs par colonne ; filtres offre/recruteur ; vue tableau complémentaire ; aucune disparition sans motif ni historique.
 
 ### Entretiens & évaluations
-- Attributs : candidature/offpe/étape, date-heure-durée, responsable+participants, type (présentiel/visio/vidéo différée), lieu/lien visible uniquement aux concernés, statuts (à planifier→absent), rappels, résultat.
+- Attributs : candidature/offre/étape, date-heure-durée, responsable+participants, type (présentiel/visio/vidéo différée), lieu/lien visible uniquement aux concernés, statuts (à planifier→absent), rappels, résultat.
 - Détection de conflits d'horaire avec proposition d'autre créneau (T-13).
 - Grille 1–5 : compétences techniques, communication, résolution de problèmes, compréhension des missions, motivation ; note reliée à une question/preuve quand possible ; recommandation favorable/à approfondir/défavorable distincte du score CV ; une fiche par évaluateur/entretien.
 - Vidéo différée : **simulation au MVP** (questions, temps, statut, observations) ; enregistrement réel = extension soumise à consentement, accès limité, conservation, suppression planifiée ; jamais d'analyse d'émotions/faciale/personnalité (`CONFIRMÉ PAR SOURCE`).
