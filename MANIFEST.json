@@ -1,0 +1,202 @@
+{
+  "project": "SIRH",
+  "package_version": "NOUVEAU-DEPART-2026-10-31",
+  "description": "Pack pour démarrer une nouvelle application SIRH locale depuis zéro avec Qwen Coder.",
+  "files": [
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "bytes": 304,
+      "sha256": "5c051bbc0aba43c37e18e187eba68c9693db70fd95f032b684ff31d78b19158e"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "bytes": 261,
+      "sha256": "c5bb5361d91d5181d5bb191fae3598def0084d5f0ecd0279ba620beb5e8d4213"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "bytes": 423,
+      "sha256": "1e7b01192e74ca9b5c60891e2532206b04a583c091a6a4d27f24c30df7dfb43f"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 2048,
+      "sha256": "26f455f545ef2060773e4dc14ebec82b1130ed625283bd3aaa058a6898b3c75c"
+    },
+    {
+      "path": "QWEN.md",
+      "bytes": 3026,
+      "sha256": "40fa1bfce8c589149811e7453ee4b5dc4616e3cbaf1bfe3fc85a70b4ba68b229"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3561,
+      "sha256": "4e8cbe3bae9cbe669a80be157d3a8353c0921edd4e45cb0443dddf7309072bf6"
+    },
+    {
+      "path": "README_DEMARRAGE.md",
+      "bytes": 3561,
+      "sha256": "4e8cbe3bae9cbe669a80be157d3a8353c0921edd4e45cb0443dddf7309072bf6"
+    },
+    {
+      "path": "docs/00_LIRE_EN_PREMIER.md",
+      "bytes": 2984,
+      "sha256": "416e9956574a5dd02b5f8f4af48fbfa73d326c82e9248b839630b988dd31db2e"
+    },
+    {
+      "path": "docs/01_REGLES_ET_SOURCE_DE_VERITE.md",
+      "bytes": 5350,
+      "sha256": "34d7179a47ecc0ede97d8c4e47103695886b6a79f1cce6ec4f98bdf317182e31"
+    },
+    {
+      "path": "docs/ANALYSE/README.md",
+      "bytes": 332,
+      "sha256": "6be4dc207e843d47d8e17c610b43965bfc6e19b5ff71ec60f16513a8e1eb04f1"
+    },
+    {
+      "path": "docs/DECISIONS_A_VALIDER.md",
+      "bytes": 2108,
+      "sha256": "85c7d72f6b94a4c7255029d1dca1d230fb5cf4689f087897ac243787fced48cc"
+    },
+    {
+      "path": "docs/EQUIPE/ORGANISATION_EQUIPE_5_MEMBRES.md",
+      "bytes": 3278,
+      "sha256": "138a4411db10af66b9c73ee56c85ba0682a8469aac92230ea2701f5e3deb848b"
+    },
+    {
+      "path": "docs/INDEX_DES_PROMPTS.md",
+      "bytes": 1946,
+      "sha256": "76fc85a505b8c64f10173681b50000695f358c5749f4e138aac57182b83a80f6"
+    },
+    {
+      "path": "docs/PHASES/PHASE_00_ANALYSE_ET_CADRAGE.md",
+      "bytes": 24175,
+      "sha256": "ca68a89c20e8a10599b8e43aa64378d794a060b3f507a9ff8518055394f90912"
+    },
+    {
+      "path": "docs/PHASES/PHASE_01_SOCLE_PHP_MYSQL_WAMP.md",
+      "bytes": 25729,
+      "sha256": "e3177e33c6c2c36ea75ec9f5de8e8c8cc168be3022f93e446ef4efdb7f6658ce"
+    },
+    {
+      "path": "docs/PHASES/PHASE_02_AUTHENTIFICATION_ADMINISTRATION.md",
+      "bytes": 28040,
+      "sha256": "daaa9f5005a156f82ddadcdaf36152afca5cb5bcbb074d199d1c0aa57cac79b7"
+    },
+    {
+      "path": "docs/PHASES/PHASE_03_OFFRES_ET_PORTAIL_CANDIDAT_LOCAL.md",
+      "bytes": 10624,
+      "sha256": "bc9bec08508390a78257ec550f2ef90270b3559bb9f378aec2af147d5ee227d6"
+    },
+    {
+      "path": "docs/PHASES/PHASE_04_CANDIDATS_DOCUMENTS_CANDIDATURES.md",
+      "bytes": 12193,
+      "sha256": "1dc83cb5d15744fc900402ba9ff3ca0c2362f8c85d33bd89a372105c3cb82568"
+    },
+    {
+      "path": "docs/PHASES/PHASE_05_IA_MATCHING_SCORING_PRESELECTION.md",
+      "bytes": 14487,
+      "sha256": "c6938cc25421062c62509849ba5901a453d936ccef714151086c157fd654fabc"
+    },
+    {
+      "path": "docs/PHASES/PHASE_06_PIPELINE_ENTRETIENS_EVALUATIONS.md",
+      "bytes": 11500,
+      "sha256": "6d32c940a74611b065af3e06ad9d1a54d1aaf9f53ad75f05716f0fea7698c7b9"
+    },
+    {
+      "path": "docs/PHASES/PHASE_07_COMMUNICATIONS_NOTIFICATIONS.md",
+      "bytes": 8120,
+      "sha256": "c0a5f1fa9521880d3c4545d166ac80e7f13572caa3560e2c31e9cea15d793fd0"
+    },
+    {
+      "path": "docs/PHASES/PHASE_08_DASHBOARD_REPORTING_EXPORTS.md",
+      "bytes": 12031,
+      "sha256": "5a9b9215d56acc568aadd4a08845287bb71ef68e935e25a534f115c2e738397d"
+    },
+    {
+      "path": "docs/PHASES/PHASE_09_TESTS_VALIDATION_REMISE_LOCALE.md",
+      "bytes": 23646,
+      "sha256": "8bc05261feb74a979cfcbc15d716ca03f8c7638e3df5878bdd2a53cca066b9b8"
+    },
+    {
+      "path": "docs/PROMPTS_A_COPIER/00_NOUVEAU_PROJET_DEPUIS_ZERO_PHASE_00.md",
+      "bytes": 7509,
+      "sha256": "489ca5032acfce413be6f84b7eb00a3fd0ad32d34daef7f0bd0279eced672424"
+    },
+    {
+      "path": "docs/PROMPTS_A_COPIER/01_EXECUTER_PHASE_01_SOCLE_LOCAL.md",
+      "bytes": 4808,
+      "sha256": "1e476c20dc9f7c36cd76023cce439f1608949e7ebe363699f887992e4ce5d6cc"
+    },
+    {
+      "path": "docs/PROMPTS_A_COPIER/02_EXECUTER_PHASE_02_AUTH_ADMIN.md",
+      "bytes": 5158,
+      "sha256": "91ea6cfe6f00ecf9854c09b0c36aac1f377def760d1f6fef1fd8927198d77cef"
+    },
+    {
+      "path": "docs/PROMPTS_A_COPIER/03_EXECUTER_PHASE_03_OFFRES_PORTAIL_LOCAL.md",
+      "bytes": 4714,
+      "sha256": "748fef234f9d53ad2a67f9c07d0d08719dcc498e4c85090089dbfd8eb65c15c2"
+    },
+    {
+      "path": "docs/PROMPTS_A_COPIER/04_EXECUTER_PHASE_04_CANDIDATS_CV.md",
+      "bytes": 4851,
+      "sha256": "3b30506b5c01b9190be9f579db060224c22be1efb7e2d04f590e715b4d5de4a2"
+    },
+    {
+      "path": "docs/PROMPTS_A_COPIER/05_EXECUTER_PHASE_05_IA_SCORING.md",
+      "bytes": 5002,
+      "sha256": "8612689e2e45ede9a550a4cd5ec42c00e84e9de9523e6e6cfcc8e6fac309c053"
+    },
+    {
+      "path": "docs/PROMPTS_A_COPIER/06_EXECUTER_PHASE_06_PIPELINE_ENTRETIENS.md",
+      "bytes": 4763,
+      "sha256": "b3355f69b637d4c3a6eb620cb4cfb168f67d584181e7f09eafab34e0870243d0"
+    },
+    {
+      "path": "docs/PROMPTS_A_COPIER/07_EXECUTER_PHASE_07_COMMUNICATIONS.md",
+      "bytes": 4692,
+      "sha256": "3666e0c13e3a0aaa9ac0c9934272ebc4fcf930d4c964f0c4ccf34e4b9a449161"
+    },
+    {
+      "path": "docs/PROMPTS_A_COPIER/08_EXECUTER_PHASE_08_DASHBOARD_REPORTING.md",
+      "bytes": 4766,
+      "sha256": "d9d85be56f946f6969e11d0a94a50517572edacb13e17b8d63c8c2e2ba4d5ec1"
+    },
+    {
+      "path": "docs/PROMPTS_A_COPIER/09_EXECUTER_PHASE_09_TESTS_REMISE.md",
+      "bytes": 4996,
+      "sha256": "2abb20b32b69a150a91d24833b79011ae52c287fd39a4a7aaa15d8d7bfcde516"
+    },
+    {
+      "path": "docs/QUALITE/CHECKLIST_INSTALLATION_CINQ_POSTES.md",
+      "bytes": 1564,
+      "sha256": "e0e0db21f5752a92ca4766bbf0fc3777197de62ee2c167e99339d9f61f27e59e"
+    },
+    {
+      "path": "docs/QUALITE/TRAÇABILITE_MVP_TESTS.md",
+      "bytes": 1168,
+      "sha256": "e317beb944247df806cf604728e4e243dee487fccfa2a98615c8ea9b04e2beeb"
+    },
+    {
+      "path": "docs/RAPPORTS_PHASES/README.md",
+      "bytes": 327,
+      "sha256": "3375e4650c0cefe7c7fbb31b9bd7a5b5c37fdb562a6fddc2748d8862a1968dba"
+    },
+    {
+      "path": "docs/TEMPLATES/RAPPORT_FIN_PHASE.md",
+      "bytes": 859,
+      "sha256": "c1dc125f28cc419affb9ae5f5e0bdbdd17eb069f14e7ff9d4d659b13efb41dfe"
+    },
+    {
+      "path": "references/CAHIER_DES_CHARGES_SOURCE_24_PAGES.pdf",
+      "bytes": 8536946,
+      "sha256": "41cf64bb7a201b45bf07461928dc4a107568db1311303dfdeb2b1bc96d75eb1d"
+    },
+    {
+      "path": "references/MASTER_PROMPT_REFERENCE_COMPLET_V3.md",
+      "bytes": 96716,
+      "sha256": "1403166306891d11b6c70c3f48c223c2ef1305bc52c0e30dd3408f715fbcf0f2"
+    }
+  ]
+}
