@@ -15,7 +15,7 @@ Sources : PDF §3 + MP V3 §5–7 (`CONFIRMÉ PAR SOURCE`). Conformité des test
 | MVP-07 | Entretiens et évaluations | Planifier, évaluer, enregistrer recommandation/décision | M8 | T-13 |
 | MVP-08 | Étude de cas | Cinq profils fictifs + restitution exacte de la grille | M6/M11 | scores exacts 90/85/70/70/35 |
 | MVP-09 | Exports PDF et Excel | Listes/rapports avec colonnes et filtres choisis | M10 | T-14, T-15, T-19, T-20 |
-| MVP-10 | Dashboard et sécurité | Indicateurs calculés, accès et fichiers protégés | M2/M12 | T-01, T-02, T-18, T-26, T-29, T-31, T-32, T-35 |
+| MVP-10 | Dashboard et sécurité | Indicateurs calculés, accès et fichiers protégés | M2/M12 | T-01, T-02, T-18, T-26, T-31, T-32, T-35 (T-29/T-30 sont des tests globaux de déploiement/RBAC, non spécifiques au dashboard — cf. `12_MATRICE_TRACABILITE.md`) |
 
 S'y ajoutent comme exigences socle du pack : centre Administration complet (M12), préférences personnelles (M13), communications avec simulation honnête (M9), migrations/sauvegardes/installation reproductible sur les 5 PC.
 
