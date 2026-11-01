@@ -59,3 +59,18 @@ Décision attendue de l'utilisateur : choisir A/B/C/E (ou une autre règle expli
 3. Toutes les autres décisions humaines restent ci-dessus avec leurs conséquences ; rien n'a été arbitré silencieusement. D-16 est actée comme validée (hiérarchie documentaire approuvée) ; D-24 reste ouverte.
 4. Aucun code PHP/JS/SQL, aucune migration, aucun fichier de référence modifié — uniquement des documents dans `docs/ANALYSE/`.
 5. **D-25** (développement individuel confirmé par le propriétaire le 01/11/2026) : appliquée aux documents d'organisation (`08_`, `13_`, `14_`, `15_`, `17_`) sans réduction du périmètre fonctionnel ni modification des définitions officielles de tests ; **D-22 close** de ce fait ; **D-26 ouverte** pour les modalités d'exécution de T-33 en contexte mono-machine.
+
+---
+
+## Addendum 01/11/2026 — Environnement cible réel déclaré par le propriétaire (application des consignes D-05/D-20)
+
+Informations relevées par le propriétaire sur son PC WampServer (considérées comme caractéristiques officielles de l'environnement cible) :
+- **MySQL 8.4.7**, base `sirh` existante et vide, charset `utf8mb4`, collation `utf8mb4_unicode_ci`, utilisateur `root@localhost`, **moteur par défaut du serveur : MyISAM** ; PHP CLI **8.2.29**, PDO MySQL disponible.
+
+Décisions/règles techniques en découlant (appliquées, sans modification de la base du poste ni de WampServer) :
+- **D-05** : cible = versions réelles du poste (PHP 8.2.x, MySQL 8.4.x). Le code reste compatible MariaDB 10.11+ pour les tests d'intégration de la sandbox de développement ; aucune hypothèse de version inventée.
+- **D-20** : `utf8mb4_unicode_ci` retenue (explicitement confirmée par le propriétaire ; compatible MySQL 8.4 et MariaDB ; jamais `0900_ai_ci`).
+- **Nouvelle règle obligatoire tracée** : chaque migration déclare explicitement `ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci` — le moteur par défaut MyISAM du serveur ne doit jamais être utilisé (intégrité référentielle exigée par le modèle 64 tables).
+- **D-21** : confirmée — script de migration maison forward-only (déjà livré en Phase 01), migrations 0001→0007 créées et validées syntaxiquement/exécutées sur une base de test isolée de la sandbox (`sirh_syntax_check`), **jamais sur la base `sirh` du PC du propriétaire**.
+- Aucun mot de passe codé en dur ; identifiants via `config/.env` (ignoré Git, hors dépôt GitHub).
+
