@@ -46,12 +46,12 @@ Ces éléments proviennent des exigences « partagées dans la conversation » o
 2. Interdiction totale d'hébergement Internet/Cloud ; GitHub = versionnement seul.
 3. Partie V complète : centre Administration §24.1→24.19 et préférences personnelles §25.
 4. Contraintes stack : MySQL de référence (pas de mélange MariaDB), PDO ERRMODE_EXCEPTION, DocumentRoot `public/`, BASE_URL sans chemin codé en dur.
-5. Stratégie migrations SQL versionnées + 5 bases locales synchronisées par GitHub (§30).
+5. Stratégie migrations SQL versionnées + 5 bases locales synchronisées par GitHub (§30). *(Note de bascule D-25, 01/11/2026 : l'exigence d'origine « équipe » est conservée ici pour la fidélité de la comparaison ; elle est abrogée pour l'organisation — environnement local unique, sans synchronisation de cinq bases. La stratégie de migrations reproductible est maintenue.)*
 6. Stockage privé détaillé (§31) : noms aléatoires, MIME réel, cohérence upload_max_filesize…
 7. Sauvegardes locales chiffrées + restauration testée (§32).
 8. Jeu de démonstration ~**150 candidatures fictives** (§36) et comptes de test (§37).
 9. Tests complémentaires **T-21→T-35** (§43).
-10. Workflow équipe 5 membres (Annexe B), branches protégées, PR obligatoires.
+10. Workflow équipe 5 membres (Annexe B), branches protégées, PR obligatoires. *(Note de bascule D-25, 01/11/2026 : conservé pour la fidélité de la comparaison ; abrogé pour l'organisation — dépôt personnel privé, `main` + branches feature si nécessaire, cf. `14_PLAN_GITHUB_EQUIPE.md`. Le périmètre fonctionnel et les tests T-01→T-35 sont intégralement conservés.)*
 11. Loi marocaine **09-08 / CNDP** explicitement nommée (§40) — le PDF parle de « confidentialité/conservation » sans citer la loi.
 12. Exigence i18n UTC + fuseau Africa/Casablanca.
 
