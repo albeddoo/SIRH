@@ -58,6 +58,8 @@ return [
         'database'  => env('DB_DATABASE', 'sirh'),
         'username'  => env('DB_USERNAME', 'root'),
         'password'  => env('DB_PASSWORD', ''),
+        // DB_SOCKET : usage sandbox/dev uniquement (socket unix local). Laisser vide sur WampServer.
+        'socket'    => env('DB_SOCKET', ''),
         'charset'   => 'utf8mb4',
         // D-20 résolue sur la version réellement détectée (MariaDB 10.x → utf8mb4_unicode_ci,
         // collation compatible MySQL 8 comme MariaDB ; jamais 0900_ai_ci qui est MySQL-only).

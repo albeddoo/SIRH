@@ -26,14 +26,20 @@ final class Database
             return self::$pdo;
         }
 
-        $c   = self::$config;
-        $dsn = sprintf(
-            'mysql:host=%s;port=%d;dbname=%s;charset=%s',
-            $c['host'],
-            $c['port'],
-            $c['database'],
-            $c['charset']
-        );
+        $c = self::$config;
+        // Option locale (sandbox/dev) : DB_SOCKET permet une connexion par socket unix.
+        // Sur WampServer Windows, cette variable reste vide -> DSN TCP host:port standard.
+        if (!empty($c['socket'] ?? '')) {
+            $dsn = sprintf('mysql:unix_socket=%s;dbname=%s;charset=%s', $c['socket'], $c['database'], $c['charset']);
+        } else {
+            $dsn = sprintf(
+                'mysql:host=%s;port=%d;dbname=%s;charset=%s',
+                $c['host'],
+                $c['port'],
+                $c['database'],
+                $c['charset']
+            );
+        }
 
         try {
             self::$pdo = new \PDO($dsn, $c['username'], $c['password'], $c['options']);
