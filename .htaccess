@@ -1,0 +1,6 @@
+# Repli de sécurité si le DocumentRoot pointe sur la racine du projet
+# (configuration recommandée : DocumentRoot = public/). Bloque tout accès direct.
+<FilesMatch "\.(env|ini|log|sql|json|lock|md)$">
+    Require all denied
+</FilesMatch>
+RedirectMatch 404 ^/(app|bootstrap|config|database|storage|vendor|bin)(/|$)

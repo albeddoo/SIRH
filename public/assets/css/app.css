@@ -1,0 +1,4 @@
+/* SIRH — styles d'appoint ; l'essentiel vient de Bootstrap 5 auto-hébergé. */
+body { min-height: 100vh; }
+.navbar-brand { font-weight: 600; letter-spacing: .5px; }
+table th { width: 220px; }

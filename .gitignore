@@ -1,19 +1,14 @@
 .env
-.env.*
-!.env.example
+.env.local
+storage/logs/*.log
 
-/vendor/
-/node_modules/
-
-storage/logs/*
-!storage/logs/.gitkeep
-
-storage/uploads/*
-!storage/uploads/.gitkeep
-
+# Documents generes (jamais versionnes)
+storage/documents/*
+!storage/documents/.gitkeep
 storage/exports/*
 !storage/exports/.gitkeep
-
-*.log
-Thumbs.db
-.DS_Store
+storage/uploads/*
+!storage/uploads/.gitkeep
+storage/framework/*
+!storage/framework/.gitkeep
+vendor/
