@@ -1,0 +1,12 @@
+# SIRH — réécriture vers le Front Controller unique (aucun accès direct au code)
+Options -Indexes
+RewriteEngine On
+RewriteBase /
+
+# Si le fichier/dossier physique existe (assets), le servir directement.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Tout le reste passe par index.php
+RewriteRule ^ index.php [QSA,L]
