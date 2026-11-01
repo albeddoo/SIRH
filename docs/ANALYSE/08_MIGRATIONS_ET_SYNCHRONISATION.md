@@ -1,6 +1,8 @@
-# Stratégie de migrations SQL et synchronisation des cinq bases locales
+# Stratégie de migrations SQL et synchronisation de la base locale
 
-Sources : MP V3 §30, §24.18, règles 7–9 (`CONFIRMÉ MP`) ; PDF §15 contraintes qualité (`CONFIRMÉ PAR SOURCE`). **Aucune migration n'est écrite en Phase 00** — ce document définit la stratégie validable.
+> **MISE À JOUR CONTEXTUELLE (01/11/2026)** — Développement **individuel** confirmé par le propriétaire (voir D-25, `16_DECISIONS_EN_ATTENTE.md`) : un seul environnement WampServer, une seule base locale. La « synchronisation des cinq bases » est remplacée par la discipline « **un dépôt versionné = une vérité de schéma, appliquée immédiatement sur l'environnement unique** ». Les principes de reproductibilité sont **intégralement conservés** (exigence du propriétaire). Titre du fichier conservé pour la stabilité des références croisées.
+
+Sources : MP V3 §30, §24.18, règles 7–9 (`CONFIRMÉ MP`, origine équipe → adaptée solo) ; PDF §15 contraintes qualité (`CONFIRMÉ PAR SOURCE`). **Aucune migration n'est écrite en Phase 00** — ce document définit la stratégie validable.
 
 ## 1. Principes
 
@@ -9,8 +11,8 @@ Sources : MP V3 §30, §24.18, règles 7–9 (`CONFIRMÉ MP`) ; PDF §15 contrai
 3. Table technique `migrations(version PRIMARY KEY, applied_at, checksum)` pour connaître l'état de chaque base.
 4. Séparation stricte : **schéma (migrations)** ≠ **données de référence minimales (seeders système)** ≠ **données de démonstration fictives (seeders demo)**. Seeders démo idempotents et réinitialisables (M12/demo_runs).
 5. Aucune donnée personnelle réelle ni dump de base active dans Git ; pas de données sensibles dans les logs.
-6. Chaque migration doit pouvoir s'appliquer sur une base **vierge** et sur une base **à jour N-1** ; testée avant merge PR.
-7. Compatibilité MySQL 8.x (version commune à confirmer D-05) ; InnoDB ; utf8mb4_unicode_ci (ou 0900_ai_ci si validé uniforme — décision D-20 à trancher après relevé des versions).
+6. Chaque migration doit pouvoir s'appliquer sur une base **vierge** et sur une base **à jour N-1** ; testée avant commit/tag (en solo : double vérification manuelle — base de travail + recréation propre).
+7. Compatibilité MySQL 8.x ou MariaDB (**version réelle du poste unique à confirmer au relevé D-05**) ; InnoDB ; utf8mb4_unicode_ci (ou 0900_ai_ci si validé — décision D-20 à trancher après relevé de la version installée).
 
 ## 2. Ordre logique des migrations (plan par phase — contenu réel produit en Phase 01+)
 
@@ -35,31 +37,32 @@ Contraintes à poser dès ces lots : FK ON DELETE restrict/set null selon traça
 ## 3. Schéma de référence reproductible
 
 - Objectif : `database/schema.sql` **régénéré** (export de la base après application de toutes les migrations) comme snapshot de contrôle, non comme source d'édition.
-- Reproductibilité : sur une base vierge, `migrate` rejoue NNNN… → état identique sur les 5 PC ; vérifié par checksum de structure (test d'installation propre, critère de sortie Phase 01/09).
+- Reproductibilité : sur une base vierge, `migrate` rejoue NNNN… → état identique à celui du dépôt ; vérifiée périodiquement par recréation propre de la base locale (test d'installation propre, critère de sortie Phase 01/09). Cette exigence est **maintenue intégralement en développement individuel** : c'est le garant de la crédibilité de T-33 et de la soutenabilité du projet.
 - Un script CLI local (PHP, Phase 01) appliquera : liste des migrations non appliquées → exécution transactionnelle par lot → inscription `migrations` → rapport d'erreurs. Son existence est prévue ici, son code est interdit en Phase 00.
 
-## 4. Synchronisation des cinq bases locales
+## 4. Synchronisation — environnement unique + dépôt distant
 
-Modèle : **cinq environnements indépendants, un seul schéma versionné**.
+Modèle : **un environnement local, un dépôt Git privé comme source de vérité** (la synchronisation multi-postes est sans objet depuis la confirmation du développement individuel, D-25).
 
-1. La vérité de schéma = dépôt GitHub (`database/migrations/*`). Chaque poste clone/pull puis exécute `migrate` sur SA base `sirh`.
-2. Conflit de version détecté : si `migrations` local ≠ HEAD du dépôt → le poste doit tirer les nouvelles migrations ; toute divergence (migration modifiée après merge) est interdite : on ajoute une migration corrective, on n'édite jamais une migration déjà mergée (règle forward-only).
+1. La vérité de schéma = dépôt GitHub (`database/migrations/*`). Le développeur applique `migrate` sur SA base `sirh` immédiatement après tout changement mergé/commité touchant le schéma.
+2. Conflit de version détecté : si `migrations` local ≠ HEAD du dépôt → appliquer les nouvelles migrations avant toute autre évolution ; toute divergence (migration modifiée après commit) est interdite : on ajoute une migration corrective, on n'édite jamais une migration déjà commitée (règle forward-only).
 3. Données : seeders système (rôles, permissions, étapes, grille pédagogique v1) = migrations data ou seeders versionnés rejouables idempotents ; seeders démo (~150 candidatures fictives + 5 profils exacts) = commande dédiée réinitialisable par rôle autorisé.
-4. Jamais de partage de dump entre postes pour « rattraper » le schéma ; jamais de base active/dump avec données personnelles dans Git.
-5. Avant chaque release/soutenance : tag Git + checklist « les 5 postes sont au même lot de migrations » (T-33 installation propre).
-6. Environnement de démonstration final : un poste désigné (accord équipe) sert de référence ; sa base est reconstruite depuis migrations+seeders (pas copiée) pour garantir la reproductibilité.
+4. Jamais de dump de base active avec données dans Git ; la reconstruction passe toujours par migrations + seeders.
+5. Avant chaque release/soutenance : tag Git + vérification « environnement local et dépôt au même lot de migrations » ; installation propre rejouée (cf. §3). En cas de démonstration sur une machine tierce (ex. soutenance), la procédure clone+migrate+seed doit fonctionner sans adaptation → c'est l'esprit conservé de T-33 (définition officielle inchangée ; modalités d'exécution à revalider par le propriétaire, cf. D-26).
+6. Environnement de démonstration : la machine du développeur sert de référence ; sa base peut être reconstruite à tout moment depuis migrations+seeders (pas copiée) pour garantir la reproductibilité.
 
 ## 5. Sauvegarde avant migration
 
-Avant tout `migrate` sur une base contenant des données de travail : export SQL + copie `storage/` vers `storage/backups/` horodaté (hors Git/HTTP) ; ne pas écraser la dernière sauvegarde valide avant vérification de la nouvelle ; restauration testée périodiquement sur base séparée (MP §30 règle 8, §24.18, T-28/T-34).
+Avant tout `migrate` sur une base contenant des données de travail : export SQL + copie `storage/` vers `storage/backups/` horodaté (hors Git/HTTP) ; ne pas écraser la dernière sauvegarde valide avant vérification de la nouvelle ; restauration testée périodiquement sur base séparée (MP §30 règle 8, §24.18, T-28/T-34). En contexte individuel, cette discipline est **renforcée** (aucun second poste de secours humain) : les sauvegardes locales + le dépôt privé GitHub constituent la seule redondance (risque R-16, `15_...`).
 
 ## 6. Rejet/rollback
 
-Forward-only assumé : pas de down-migration automatique en MVP ; rollback = restauration de sauvegarde + nouvelle migration corrective. Documenté pour que l'équipe ne soit jamais surprise.
+Forward-only assumé : pas de down-migration automatique en MVP ; rollback = restauration de sauvegarde + nouvelle migration corrective. Documenté pour que le développeur ne soit jamais surpris.
 
 ## 7. Décisions ouvertes liées
 
-- D-05/D-01b : versions PHP/MySQL communes (conditionne collation et syntaxe autorisée).
-- D-20 : choix de collation uniforme après relevé.
-- D-21 : outil de migration — script maison minimal vs Composer/Phinx (recommandation : script maison simple conforme « MVC personnalisé », à valider).
-- Rythme/validation des lots : M3 propriétaire du schéma, revue obligatoire avant merge (cf. `14_PLAN_GITHUB_EQUIPE.md`).
+- D-05/D-01b : versions PHP & MySQL/MariaDB **réelles du poste unique** (conditionnent collation et syntaxe autorisée) — à relever sur le PC du développeur, aucune valeur inventée.
+- D-20 : choix de collation selon la version relevée.
+- D-21 : outil de migration — script maison minimal vs Composer/Phinx (recommandation : script simple conforme « MVC personnalisé », à valider).
+- D-26 : modalités d'exécution de T-33 en développement individuel (une machine vs validation sur machine tierce de soutenance) — à confirmer par le propriétaire.
+- Rythme/validation des lots : le développeur unique est propriétaire du schéma ; auto-contrôle documenté + validation du propriétaire aux jalons (cf. `14_PLAN_GITHUB_EQUIPE.md`).

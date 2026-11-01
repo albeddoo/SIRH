@@ -2,16 +2,18 @@
 
 Base : MP V3 §27–32 (`CONFIRMÉ MP`) complété par PDF §16 (`CONFIRMÉ PAR SOURCE`). Les choix fins non imposés sont `PROPOSITION`. **Aucun code n'est écrit en Phase 00.**
 
+> **MISE À JOUR CONTEXTUELLE (01/11/2026, D-25)** — Développement **individuel** confirmé par le propriétaire : un seul poste de développement (son PC), plus d'« environnement équipe » ni de versions « communes aux 5 PC ». La stack et les exigences techniques restent inchangées ; seules les modalités de relevé/synchronité s'appliquent à l'environnement unique.
+
 ## 1. Stack cible
 
 | Couche | Technologie | Rôle | Statut |
 |---|---|---|---|
-| OS dev | Windows 10/11 (5 postes) | Environnement équipe | CONFIRMÉ MP |
+| OS dev | Windows 10/11 (poste unique du développeur) | Environnement local individuel | CONFIRMÉ MP (adapté solo, D-25) |
 | Serveur local | WampServer 64-bit | Apache/PHP/MySQL | CONFIRMÉ MP |
 | HTTP | Apache 2.4.x | Sert `public/` via localhost ou VirtualHost | CONFIRMÉ MP |
-| Backend | PHP 8.2+ — **version exacte commune à confirmer sur les 5 PC** | Contrôleurs, services, règles métier | À VÉRIFIER SUR LES PC |
+| Backend | PHP 8.2+ — **version exacte à confirmer au relevé du poste unique** | Contrôleurs, services, règles métier | À VÉRIFIER SUR LE PC |
 | Architecture | MVC personnalisé (pas de framework) | Séparation C/M/V | CONFIRMÉ MP |
-| BDD | MySQL 8.x (version commune à confirmer ; pas de mélange MariaDB sans test documenté) | Stockage relationnel | CONFIRMÉ MP / versions À RELEVER |
+| BDD | MySQL 8.x ou MariaDB (**version réelle du poste unique à relever ; pas de mélange sans test documenté**) | Stockage relationnel | CONFIRMÉ MP / version À RELEVER |
 | Accès SQL | PDO MySQL, requêtes préparées, `ERRMODE_EXCEPTION`, transactions | Sécurité d'accès | CONFIRMÉ MP |
 | Encodage | UTF-8 / `utf8mb4` | Accents + arabe éventuel | CONFIRMÉ MP |
 | Frontend | HTML5, CSS3, Bootstrap 5, JS natif + AJAX/Fetch | UI responsive | CONFIRMÉ MP |
@@ -76,7 +78,7 @@ Sessions PHP durcies : cookies `HttpOnly`, `SameSite` (Strict/Lax à trancher), 
 ## 7. Tests et qualité
 
 - `tests/unit` (règles de scoring, validateurs, neutralisation formules Excel), `tests/integration` (repositories, RBAC), `tests/acceptance` (scénarios T-01→T-35 pilotés par M1). Framework de test PHP à choisir parmi les compatibilités WampServer validées (PROPOSITION ; ex. PHPUnit selon version PHP retenue).
-- Page de test commune (connexion MySQL + affichage versions) devant passer sur les 5 PC avant toute fonctionnalité (`CONFIRMÉ MP` §27).
+- Page de test (connexion MySQL + affichage versions) devant passer sur l'environnement local unique avant toute fonctionnalité (`CONFIRMÉ MP` §27, transposé solo par D-25).
 
 ## 8. Installation cible (résumé procédure MP §28 — exécutée en Phase 01, pas maintenant)
 
@@ -88,6 +90,6 @@ Export SQL `sirh` + copie cohérente de `storage/` dans un emplacement non HTTP,
 
 ## 10. Décision attendue (blocages Phase 01)
 
-- Relevé des versions réelles sur les 5 PC (aucune valeur supposée) → D-05/D-01b.
+- Relevé des versions réelles sur le poste unique (aucune valeur supposée) → D-05/D-01b.
 - Arbitrage bibliothèque PDF après test comparatif (accents français, RTL, tableaux multipages, performance) → D-04b.
 - Choix graphique local (Chart.js auto-hébergé vs rendu serveur vs simple) compatible T-31 hors Internet → D-17.

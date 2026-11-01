@@ -1,14 +1,16 @@
-# Diagnostic à effectuer sur les cinq environnements WampServer
+# Diagnostic à effectuer sur l'environnement WampServer local
 
-Objectif : établir la **vérité technique des 5 postes** avant toute Phase 01 (règle MP §27 : tant que la page de test commune ne passe pas partout, aucune fonctionnalité n'est produite). Ce document est un protocole ; l'exécution relève de l'équipe (M4 + chaque membre), avec M2 qui centralise. Aucune valeur n'est supposée ici.
+> **MISE À JOUR CONTEXTUELLE (01/11/2026)** — Le propriétaire du projet a confirmé qu'il est **le seul développeur du projet**. Il n'y a pas d'équipe de cinq développeurs ni de cinq postes. Les mentions de « cinq environnements / 5 postes » proviennent des hypothèses initiales issues des sources (MP V3 Annexe B, PDF) et sont **abrogées pour l'organisation** ; le périmètre fonctionnel reste inchangé. L'historique de cette évolution est tracé via **D-25** (`16_DECISIONS_EN_ATTENTE.md`). Titre du fichier conservé pour la stabilité des références croisées.
 
-## 1. Périmètre du relevé (par poste)
+Objectif : établir la **vérité technique de l'unique environnement local** (le PC du développeur) avant toute Phase 01 (principe MP §27 transposé : tant que la page de test locale ne passe pas, aucune fonctionnalité n'est produite). Ce document est un protocole ; son exécution relève du développeur unique, avec Qwen Code comme assistant. Aucune valeur n'est supposée ici.
 
-À remplir dans `docs/QUALITE/DIAGNOSTIC_CINQ_ENVIRONNEMENTS.md` (fichier de résultats à créer en Phase 01, pas maintenant) :
+## 1. Périmètre du relevé (environnement unique)
+
+À remplir dans `docs/QUALITE/DIAGNOSTIC_ENVIRONNEMENT_LOCAL.md` (fichier de résultats à créer en Phase 01, pas maintenant) :
 
 | # | Élément | Comment obtenir |
 |---|---|---|
-| 1 | Nom du poste / responsable | — |
+| 1 | Nom du poste unique (développeur propriétaire) | — |
 | 2 | Windows 10/11 + édition/build | `winver` |
 | 3 | WampServer installé ? version | icône système / `wampmanager` |
 | 4 | Apache up/down, port HTTP (80 ou autre), VirtualHost existants | interface Wamp + `httpd -v`, fichiers vhosts |
@@ -24,16 +26,16 @@ Objectif : établir la **vérité technique des 5 postes** avant toute Phase 01 
 | 14 | Emplacement disque/réserves pour `www\SIRH` + `storage/backups` | explorateur |
 | 15 | Fuseau horaire OS (doit permettre Africa/Casablanca en app) | paramètres |
 
-## 2. Page de test commune (critère d'acceptation par poste)
+## 2. Page de test commune (critère d'acceptation sur l'environnement unique)
 
-En Phase 01 uniquement : script unique versionné testant ① connexion PDO MySQL à une base de test locale ② affichage versions PHP/Apache/MySQL/extensions ③ écriture/lecture fichier dans `storage/` hors DocumentRoot ④ création/lecture/suppression d'une table temporaire de test ⑤ rendu d'une page accentuée UTF-8. Un poste est VALIDÉ quand la page s'affiche sans erreur sur son navigateur local (critère directement lié à T-29 : démarrage WampServer via localhost). Résultat attendu identique sur les 5 postes, vérifié en amont par T-33 (script SQL + migrations installent une base vierge sur chacun des cinq PC) ; la synchronisation continue des schémas/version/seeders entre postes relève du contrôle permanent §30 du MP et des revues d'équipe (`14_PLAN_GITHUB_EQUIPE.md`).
+En Phase 01 uniquement : script unique versionné testant ① connexion PDO MySQL à une base de test locale ② affichage versions PHP/Apache/MySQL/extensions ③ écriture/lecture fichier dans `storage/` hors DocumentRoot ④ création/lecture/suppression d'une table temporaire de test ⑤ rendu d'une page accentuée UTF-8. L'environnement est VALIDÉ quand la page s'affiche sans erreur sur le navigateur local du développeur (critère directement lié à T-29 : démarrage WampServer via localhost). La définition officielle de T-33 (« le script SQL et les migrations installent une base vierge sur chacun des cinq PC », MP §43) n'est **pas modifiée** ; en contexte de développement individuel, elle ne peut être exécutée littéralement que si plusieurs machines sont réellement disponibles — sinon elle devra être revalidée/réinterprétée par le propriétaire (documenté dans `12_MATRICE_TRACABILITE.md`, statut « à revalider »). La synchronisation continue des schémas/version/seeders relève du contrôle permanent §30 du MP, appliqué à un seul environnement + dépôt Git.
 
 ## 3. Arbitrages dépendant du relevé (décisions attendues)
 
-- **D-05/D-01b** : version PHP commune cible = min des versions compatibles présentes ou mise à niveau uniforme décidée ; idem MySQL/MariaDB (si un poste n'a que MariaDB → décision explicite de mise à niveau ou d'exclusion documentée, MP §27).
-- **D-20** : collation uniforme (utf8mb4_unicode_ci vs 0900_ai_ci selon versions réelles).
-- Choix VirtualHost (`sirh.local`) vs URL sous-dossier `localhost/SIRH/public` — documenté par poste, cohérent via `.env.example`.
-- Ports Apache conflictuels (Skype/IIS) résolus poste par poste.
+- **D-05/D-01b** : versions PHP & MySQL/MariaDB **réelles installées sur le PC du développeur** = vérité de référence directe (plus de minimisation inter-postes ni mise à niveau uniforme d'équipe) ; MySQL vs MariaDB tranché au relevé. Aucune valeur inventée avant le relevé.
+- **D-20** : collation uniforme selon la version réelle relevée (utf8mb4_unicode_ci vs 0900_ai_ci).
+- Choix VirtualHost (`sirh.local`) vs URL sous-dossier `localhost/SIRH/public` — documenté pour l'environnement unique, cohérent via `.env.example`.
+- Port Apache conflictuel (Skype/IIS) résolu sur le poste unique.
 
 ## 4. Sécurité des manipulations
 
@@ -43,11 +45,11 @@ En Phase 01 uniquement : script unique versionné testant ① connexion PDO MySQ
 
 ## 5. Livrables du diagnostic (Phase 01)
 
-1. Tableau des 15 points × 5 postes rempli et signé par chaque membre (responsabilité individuelle).
-2. Synthèse des écarts + plan de mise à niveau (M4).
-3. PV « page de test commune OK sur 5/5 » → débloque la production de fonctionnalités.
-4. Mise à jour de `docs/DECISIONS_A_VALIDER.md` (statut D-05/D-20) après validation utilisateur.
+1. Tableau des 15 points rempli pour l'environnement unique, daté et validé par le propriétaire.
+2. Synthèse des éventuels écarts avec les prérequis MP + plan de mise à niveau éventuel.
+3. PV « page de test locale OK » → débloque la production de fonctionnalités.
+4. Mise à jour du registre de décisions (statut D-05/D-20) après validation utilisateur.
 
 ## 6. Risques anticipés (extraits, détail dans `15_REGISTRE_RISQUES.md`)
 
-Versions PHP divergentes entre postes ; port 80 occupé ; MariaDB au lieu de MySQL ; extensions manquantes (intl/gd) ; antivirus bloquant ; limites upload trop faibles pour les CV ; utilisateurs partageant un même compte (interdit par la règle équipe).
+Version PHP incompatible avec les bibliothèques retenues ; port 80 occupé ; MariaDB au lieu de MySQL (à trancher explicitement) ; extensions manquantes (intl/gd) ; antivirus bloquant ; limites upload trop faibles pour les CV ; absence de redondance humaine (un seul développeur → cf. nouveau risque R-16 dans `15_...`).

@@ -28,13 +28,15 @@ Probabilité/Impact : Faible/Moyen/Élevé. Les risques sont suivis par un respo
 
 ## C. Risques équipe / pédagogiques
 
+> **MISE À JOUR (01/11/2026, D-25)** — Le propriétaire est **le seul développeur du projet** : la section « équipe » devient « risques d'organisation et pédagogiques », réécrite pour le développement individuel. Les définitions officielles de tests (T-01→T-35) et les règles métier sont inchangées.
+
 | ID | Risque | P | I | Mitigation |
 |---|---|---|---|---|
-| R-15 | Membres bloqués par conflits Git / modifications croisées | Moyen | Moyen | branches protégées, PR obligatoires, périmètres M1–M5, pas de force-push |
+| R-15 | Point mort d'auto-validation : en solo, personne ne relit les décisions techniques (bugs de conception non détectés, régression silencieuse) | Élevé | Moyen | discipline de test local systématique avant commit (`14_...` §2.4) ; relecture des diffs sensibles (auth/RBAC/migrations/exports) par Qwen Code avec arbitrage humain ; jalons de validation explicite par le propriétaire |
 | R-16 | Temps insuffisant → features inachevées présentées comme finies | Élevé | Élevé | tranches fonctionnelles complètes par étape (principe PDF §19) ; MVP d'abord, bonus ensuite ; statut honnête par exigence |
-| R-17 | Comptes GitHub réels non fournis / accès inégaux | Moyen | Faible | D-22 (information attendue) ; invitations dès Phase 01 |
+| R-17 | Perte de données/code sans redondance humaine ni second poste (panne PC, corruption, suppression accidentelle) | Moyen | Élevé | dépôt GitHub privé = sauvegarde de version continue ; sauvegardes locales SQL + `storage/` horodatées hors Git ; restauration testée périodiquement (T-28/T-34) ; prévoyance d'un support externe secondaire |
 | R-18 | Soutenance : démonstration qui échoue le jour J | Moyen | Élevé | données fictives réinitialisables + mode démo + scénario préparé 10 étapes + sauvegarde testée (T-28/T-34) |
-| R-19 | Un seul membre concentre le code (évaluation individuelle faussée) | Moyen | Moyen | commits attribués, revues croisées, responsabilité de domaine par membre |
+| R-19 | Charge cognitive concentrée sur une seule personne (contexte technique, conformité, tests simultanés) | Moyen | Moyen | casquettes fonctionnelles séquentielles (`14_...` §3) ; traçabilité documentaire (`12_...`) comme mémoire externe ; revue du registre à chaque fin de phase |
 
 ## D. Suivi
 

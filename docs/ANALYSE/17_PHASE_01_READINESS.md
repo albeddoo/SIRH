@@ -10,11 +10,11 @@ Document préparé le **2026-11-01**. Source principale : `16_DECISIONS_EN_ATTEN
 
 | ID | Sujet | Options disponibles | Recommandation technique neutre | Conséquence sur le projet | Phase concernée | Bloquante Phase 01 |
 |---|---|---|---|---|---|---|
-| D-05/D-01b | Versions PHP & MySQL communes aux 5 postes | Valeurs fixées **après relevé réel** (`13_...`) ; aucune valeur inventée à ce jour | Cible = version commune minimale compatible présente sur les 5 PC (ou mise à niveau uniforme décidée) ; MySQL vs MariaDB tranché au relevé (MP §27) | Sans cela : stack non verrouillable, syntaxe SQL et extensions indéterminées | Phase 01 (setup) | **OUI** |
-| D-20 | Collation MySQL uniforme | `utf8mb4_unicode_ci` vs `utf8mb4_ai_ci` selon versions réelles | Trancher immédiatement après D-05 ; uniformiser sur les 5 bases | Migrations non verrouillables ; risques d'incohérence de tri/recherche | Phase 01 | **OUI** |
+| D-05/D-01b | Versions PHP & MySQL/MariaDB de l'environnement unique (développeur seul — D-25) | Valeurs fixées **après relevé réel** (`13_...`) sur le PC du développeur ; aucune valeur inventée à ce jour | Cible = versions réellement installées sur le poste unique (MySQL vs MariaDB tranché au relevé) ; plus de minimisation inter-postes (MP §27 transposé) | Sans cela : stack non verrouillable, syntaxe SQL et extensions indéterminées | Phase 01 (setup) | **OUI** |
+| D-20 | Collation MySQL/MariaDB de la base locale unique | `utf8mb4_unicode_ci` vs `0900_ai_ci` selon version réellement installée | Trancher immédiatement après D-05 (relevé du poste unique) | Migrations non verrouillables ; risques d'incohérence de tri/recherche | Phase 01 | **OUI** |
 | D-21 | Outil de migration | Script maison minimal vs Phinx/outil Composer | Script simple conforme « MVC personnalisé » (esprit MP) ; éviter les dépendances lourdes non validées | Lot 0001 non écrit → pas d'installation reproductible (T-33) | Phase 01 | **OUI** |
-| D-22 | Handles GitHub des 5 membres | Information humaine manquante (signalée dès le PDF) | Fournir les usernames au kickoff | CODEOWNERS, invitations et responsabilités `14_...` incomplets | Phase 01 | **OUI** (partiellement : bloque l'organisation Git, pas le codage local) |
-| D-23 | CI GitHub Actions (lint/tests sans base) | Oui limitée vs tout local | Décision d'équipe à acter ; une CI minimale (lint PSR + tests unitaires sans base) est compatible avec la confidentialité locale | Qualité dépend des revues manuelles si absent | Phase 01+ | NON |
+| D-22 | Handles GitHub des 5 membres | **CLOSE — sans objet** (D-25 : développeur unique, dépôt personnel privé ; CODEOWNERS supprimé) | — | — | — | NON (clôturée) |
+| D-23 | CI GitHub Actions (lint/tests sans base) | Oui limitée vs tout local | Optionnelle en solo ; une CI minimale (lint PSR + tests unitaires sans base) reste compatible avec la confidentialité locale | Qualité dépend des vérifications manuelles locales si absent | Phase 01+ | NON |
 | D-01b | Nom officiel du produit | PDF visible = « TalentFlow ATS » ; MP V3/pack = « SIRH » | Confirmer nom affiché, nom de base (`sirh`), intitulés des livrables | Incohérence graphique/textile si figé sans accord | Phase 01 (naming/scaffolding) | **OUI** (faible coût mais transversal) |
 | D-06 | Périmètre réseau | localhost seul vs LAN temporaire ponctuel | localhost par défaut ; LAN = accord explicite, temporaire, contrôlé | Démos multi-postes impossibles si requis sans décision | Phase 01 (config Apache) | NON (défaut localhost documenté) |
 | D-04b | Bibliothèque PDF | Dompdf vs mPDF (test accents/RTL/multipages/perf) | Réaliser le test comparatif écrit avant choix ; rien installé pour l'instant | Exports PDF non développables en Phase 08 | Phase 08 | NON |
@@ -31,20 +31,22 @@ Document préparé le **2026-11-01**. Source principale : `16_DECISIONS_EN_ATTEN
 | **D-08** | Départage Amine/Youssef | A compétences clés / B expérience-atouts / C ancienneté / D (exclu, discriminatoire) / **E aucune règle automatique** | **Option E validée provisoirement par le propriétaire le 31/10/2026** : Amine 70/100, Youssef 70/100, égalité conservée, aucun départage automatique, revue humaine accessible (`tie_break_rule = NULL`). **Décision définitive OUVERTE** — l'agent ne choisit pas | Impact direct T-11, scénario démo étape 5, shortlist officielle | Phase 06 (moteur scoring) | NON (règle provisoire opérationnelle actée) |
 | **D-24** | `evaluation_scores` : table distincte (**64 tables**, canonique actuel) vs fusion JSON dans `interview_evaluations` (**63**) | 64 / 63 | Conserver 64 tant que la fusion n'est pas validée ; **aucune fusion sans validation explicite** | Catalogue officiel et migrations Phase 01 non figés sur ce point | **Phase 01 (migrations)** | **OUI** (le catalogue doit être gelé avant d'écrire les migrations) |
 | D-16 | Statut du MP V3 | — | **VALIDÉE le 31/10/2026** : hiérarchie 1) décisions propriétaire, 2) PDF visible, 3) MP V3 référence textuelle complémentaire officielle, 4) documents d'analyse. Jamais présenté comme transcription certifiée/intégrale | Acté, appliqué transversalement | Toutes | NON (validée) |
+| **D-25** | Mode d'organisation : équipe de 5 vs développement individuel | — | **VALIDÉE le 01/11/2026 par le propriétaire** : développeur unique ; un seul environnement WampServer ; pas de synchronisation de cinq bases (reproductibilité par migrations maintenue) ; CODEOWNERS supprimé ; workflow solo (`main` + feature si nécessaire) ; périmètre fonctionnel et T-01→T-35 intégralement conservés | Acté ; appliqué dans `08_`, `13_`, `14_`, `15_`, `17_` | Toutes | NON (validée) |
+| **D-26** | Modalités d'exécution des tests multi-machines en contexte individuel (T-33 officiel « base vierge sur chacun des cinq PC ») | a) exécution littérale si plusieurs machines disponibles ; b) adaptation validée par le propriétaire (installation propre locale + portabilité clone+migrate+seed prouvée) ; c) autre modalité explicite | À trancher par le propriétaire ; **la définition officielle de T-33 n'est pas modifiée** | Verdict T-33 non produisible sans arbitrage | Phase 09 (planifier dès que possible, avant soutenance) | NON (bloque la Phase 09, pas la Phase 01) |
 | Q-01 | Diapositives Google Slides du cours jamais consultées (aveu du PDF) | Obtenir le contenu ou confirmation d'absence d'exigences supplémentaires | Question à poser à l'enseignante **avant le gel du périmètre** | Risque R-14 : exigences inconnues possibles | Avant Phase 01 | **OUI** (gel du périmètre) |
 | Q-02 | Validation de la stack par l'enseignante (« technologie imposée par le cours ») | Confirmation écrite | À demander formellement | Conformité pédagogique incertaine | Avant Phase 01 | **OUI** (validation formelle du cadre) |
 
-**Résumé des bloquantes Phase 01 :** D-05/D-01b, D-20, D-21, D-22, D-01b (nommage), D-24, plus questions Q-01/Q-02. Tout le reste a un défaut documentaire sûr ou ne concerne que des phases ultérieures.
+**Résumé des bloquantes Phase 01 :** D-05/D-01b, D-20, D-21, D-01b (nommage), D-24, plus questions Q-01/Q-02. D-22 est close (sans objet depuis D-25). Tout le reste a un défaut documentaire sûr ou ne concerne que des phases ultérieures.
 
 ---
 
 ## 2. Examen des points spécialement demandés
 
-### 2.1 Versions PHP et MySQL (D-05/D-01b)
-Aucune version n'est supposée dans les documents (règle : aucune valeur inventée). Le MP §27 impose une version commune aux 5 postes. L'état actuel : **inconnu jusqu'au relevé**. La page d'information Wamp et `php -v` / `mysql --version` sur chaque PC fourniront la donnée brute ; la cible sera la min(versions compatibles présentes) ou une mise à niveau uniforme décidée par le propriétaire. Si un poste n'a que MariaDB : décision explicite de mise à niveau ou d'exclusion documentée.
+### 2.1 Versions PHP et MySQL/MariaDB (D-05/D-01b)
+Aucune version n'est supposée dans les documents (règle : aucune valeur inventée). Depuis **D-25** (développeur unique, 01/11/2026), la référence n'est plus « une version commune aux 5 postes » (MP §27, origine équipe) mais **les versions réellement installées sur le PC du développeur**. La page d'information Wamp et `php -v` / `mysql --version` fourniront la donnée brute lors du relevé ; MySQL vs MariaDB sera tranché à ce moment. C'est l'unique environnement à rendre compatible — simplification directe pour D-05 et D-20.
 
-### 2.2 Compatibilité des cinq installations WampServer
-Le protocole complet existe dans `13_DIAGNOSTIC_CINQ_ENVIRONNEMENTS.md` (§1 relevé, §2 validation, §3 conséquences D-05/D-20). Voir liste minimale §3 ci-dessous. Critère de réussite lié à T-29 (démarrage localhost) et T-33 (base vierge sur les 5 PC).
+### 2.2 Compatibilité de l'installation WampServer (environnement unique)
+Protocole complet dans `13_DIAGNOSTIC_CINQ_ENVIRONNEMENTS.md` (adapté mono-poste depuis D-25 ; titre conservé pour la stabilité des références) : §1 relevé, §2 validation, §3 conséquences D-05/D-20. Critère de réussite lié à T-29 (démarrage localhost). Pour T-33 (définition officielle « base vierge sur chacun des cinq PC », MP §43, inchangée) : modalités d'exécution en contexte individuel à revalider par le propriétaire → **D-26**.
 
 ### 2.3 Bibliothèques PDF et Excel (D-04b + Excel)
 Aucune bibliothèque installée ni choisie. D-04b (Dompdf vs mPDF) attend un test comparatif écrit : accents français (T-19), RTL si arabe (T-20), tableaux multipages, performances, compatibilité avec la version PHP issue de D-05. Pour Excel : décision symétrique à ouvrir (PhpSpreadsheet vs alternative), critère clé = génération .xlsx réelle avec neutralisation des chaînes commençant par `=` (T-15). **Recommandation neutre : consigner ces deux choix dans le registre au même format que D-04b quand le propriétaire voudra bien les arbitrer** (pas d'ID inventé ici).
@@ -69,41 +71,43 @@ Politique dans `03_...` §Sauvegarde, `09_...` §9 et `08_...` : export SQL + co
 
 ---
 
-## 3. Liste minimale de vérifications sur les cinq ordinateurs (avant développement)
+## 3. Liste minimale de vérifications sur l'ordinateur unique (avant développement)
 
-Protocole détaillé : `13_DIAGNOSTIC_CINQ_ENVIRONNEMENTS.md`. Version minimale pour le PV de kickoff :
+Protocole détaillé : `13_DIAGNOSTIC_CINQ_ENVIRONNEMENTS.md` (adapté au poste unique depuis D-25). Version minimale pour le PV de kickoff — exécutée **une seule fois**, sur le PC du développeur :
 
 1. Version exacte de **WampServer** installée (icône/`wampmanager`).
 2. Version exacte de **PHP active** (`php -v` + page info Wamp) et **quel php.ini** est utilisé.
 3. Extensions PHP requises présentes : `pdo_mysql`, `mbstring`, `fileinfo`, `openssl`, `zip`, `gd` (ou autre selon D-04b retenu), intl.
 4. Version exacte de **MySQL/MariaDB**, service démarré, port **3306 libre**, moteur **InnoDB** par défaut, collations `utf8mb4` disponibles.
 5. Version **Apache**, VirtualHost/DocumentRoot prévu (`public/` recommandé), possibilité de placer `storage/` hors racine web.
-6. **Git** installé, clé SSH ajoutée, accès au dépôt privé (`ssh -T git@github.com`).
+6. **Git** installé, clé SSH ajoutée, accès au dépôt personnel privé (`ssh -T git@github.com`).
 7. **Composer** installé et fonctionnel (sans encore ajouter de dépendance).
-8. Espace disque disponible pour `storage/` + exports + sauvegardes locales.
+8. Espace disque disponible pour `storage/` + exports + sauvegardes locales ; prévoir une redondance externe (D-25 : un seul poste → risque R-16).
 9. Accès **localhost** depuis le navigateur sans proxy forcé ; vérification du fonctionnement attendu **hors Internet** (T-31).
 10. Fuseau horaire système (cohérence `Africa/Casablanca` attendue dans l'application).
-11. Permissions NTFS/écriture sur le dossier projet et le futur `storage/`.
-12. Un poste « référent » désigné pour reproduire la procédure d'installation propre (base vierge + migrations — futur T-33).
+11. Permissions d'écriture sur le dossier projet et le futur `storage/`.
+12. La machine unique sert de poste de référence : la procédure d'installation propre (base vierge + migrations — futur T-33, modalités D-26) y est rejouable à volonté.
 
-Livrable attendu : tableau de relevé rempli par poste (5 colonnes), signé/daté, alimentant directement **D-05** et **D-20**.
+Livrable attendu : tableau de relevé de l'environnement unique, daté et validé par le propriétaire, alimentant directement **D-05** et **D-20**.
 
 ---
 
 ## 4. Conditions de passage en Phase 01 (checklist de validation propriétaire)
 
-- [ ] PV diagnostic des 5 postes réalisé → D-05/D-01b tranchées (versions PHP/MySQL/Apache communes).
-- [ ] D-20 tranchée (collation uniforme).
+- [ ] PV diagnostic de l'environnement unique réalisé → D-05/D-01b tranchées (versions PHP/MySQL/MariaDB/Apache réelles relevées sur le PC).
+- [ ] D-20 tranchée (collation selon version relevée).
 - [ ] D-21 tranchée (outil de migration).
 - [ ] D-24 tranchée (64 tables canonique **ou** variante 63) → gel du catalogue.
 - [ ] D-01b confirmé (nom officiel affiché + nom de base).
-- [ ] D-22 fournis (handles GitHub des 5 membres).
+- [x] D-22 close (sans objet — développeur unique, D-25 validée le 01/11/2026).
 - [ ] Q-01 et Q-02 obtenus (diapositives du cours + validation stack par l'enseignante) ou renoncement écrit.
 - [ ] D-06 confirmé (localhost par défaut accepté).
 - [ ] Autorisation explicite du propriétaire de démarrer la Phase 01.
 
-Non bloquants mais à planifier : D-04b et choix Excel (avant Phase 08), D-17 (avant dashboard), D-07/D-18/D-10 (avant Phase 06), D-11/D-12 (Phase 07), D-19 (paramétrage conservation), D-23 (décision équipe CI), D-08 définitive (avant soutenance/scénario démo final).
+Non bloquants mais à planifier : D-04b et choix Excel (avant Phase 08), D-17 (avant dashboard), D-07/D-18/D-10 (avant Phase 06), D-11/D-12 (Phase 07), D-19 (paramétrage conservation), D-23 (CI optionnelle en solo), D-26 (modalités T-33 — avant Phase 09/soutenance), D-08 définitive (avant soutenance/scénario démo final).
+
+Planning : les phases restent les mêmes (périmètre inchangé, exigence du propriétaire) ; la serialization des tâches M1–M5 devient un ordre séquentiel personnel (une casquette à la fois), avec marge individuelle accrue sur les phases à forte densité (migrations, RBAC, IA/scoring) puisque plus de coordination d'équipe mais aussi plus de revues à auto-administrer (cf. `14_...` §2.4, R-16).
 
 ---
 
-*Rappel : D-16 validée le 31/10/2026 ; D-08 en option E provisoire (définitive ouverte) ; D-24 ouverte. Ce document ne crée aucun code, aucune migration et ne modifie aucune règle métier.*
+*Rappel : D-16 validée le 31/10/2026 ; D-25 validée le 01/11/2026 (développement individuel) ; D-08 en option E provisoire (définitive ouverte) ; D-24 et D-26 ouvertes. Ce document ne crée aucun code, aucune migration et ne modifie aucune règle métier ni définition officielle de test.*

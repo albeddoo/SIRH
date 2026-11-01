@@ -50,8 +50,8 @@ Résultat détaillé : `01_COMPARISON_PDF_VS_MASTER_PROMPT.md`. Synthèse :
 | `10_ARCHITECTURE_IA.md` | Règles déterministes vs NLP vs LLM optionnel, moteur de scoring |
 | `11_SECURITE_ET_CONFORMITE_09-08.md` | Sécurité applicative, loi 09-08/CNDP, audit, équité |
 | `12_MATRICE_TRACABILITE.md` | Exigences MVP → modules → tables → écrans → T-01…T-35 |
-| `13_DIAGNOSTIC_CINQ_ENVIRONNEMENTS.md` | Protocole de relevé des 5 postes WampServer |
-| `14_PLAN_GITHUB_EQUIPE.md` | Workflow Git, branches, PR, responsabilités des 5 membres |
+| `13_DIAGNOSTIC_CINQ_ENVIRONNEMENTS.md` | Protocole de relevé de l'environnement WampServer local unique (adapté solo, D-25 ; titre conservé) |
+| `14_PLAN_GITHUB_EQUIPE.md` | Workflow Git simplifié (dépôt personnel privé, `main` + branches feature si nécessaire), responsabilités du développeur unique |
 | `15_REGISTRE_RISQUES.md` | Risques techniques/métier/pédagogiques avec sévérité/mitigation |
 | `16_DECISIONS_EN_ATTENTE.md` | Registre des décisions : D-16 **validée** (2026-10-31), D-08 **Option E validée provisoirement — décision définitive ouverte**, autres décisions ouvertes avec options et conséquences |
 
@@ -65,13 +65,13 @@ Résultat détaillé : `01_COMPARISON_PDF_VS_MASTER_PROMPT.md`. Synthèse :
 - **IA** : niveau 1 = règles déterministes explicables (MVP) ; niveau 2 = NLP léger local (synonymes, extraction heuristique) en Bonus ; LLM local/cloud = option désactivée par défaut. CONFIRMÉ PAR SOURCE (PDF §12, MP, D-07).
 - **Sécurité** : sessions PHP durcies, `password_hash()`, CSRF, échappement XSS, RBAC serveur systématique, limitation tentatives, audit immuable, erreurs masquées. CONFIRMÉ PAR SOURCE (MP §32, PDF §17).
 - **Exports** : PhpSpreadsheet (XLSX, neutralisation CSV-injection/formules) ; bibliothèque PDF à arbitrer par test (Dompdf vs mPDF) → décision D-04b. Le PDF source exige accents français corrects et rendu RTL testé si arabe activé.
-- **5 environnements** : versions communes PHP/MySQL/Apache/extensions à relever avant tout développement (aucune version inventée) ; tant que la page de test commune ne passe pas sur les 5 PC, la production de fonctionnalités est bloquée (MP §27).
+- **Environnement local unique** (D-25, 01/11/2026 — développeur unique) : versions PHP/MySQL/MariaDB/Apache/extensions à relever sur le PC du développeur avant tout développement (aucune version inventée) ; tant que la page de test locale ne passe pas, la production de fonctionnalités est bloquée (MP §27 transposé). La « stratégie de migrations et cinq bases locales » (§30) conserve son exigence de reproductibilité, appliquée à un seul environnement + dépôt Git.
 
 ## 6. Points en attente de validation humaine
 
 Liste complète et conséquences dans `16_DECISIONS_EN_ATTENTE.md`. Bloquants pour la Phase 01 :
 - **D-08 — Départage Amine/Youssef : Option E validée provisoirement par le propriétaire (2026-10-31)** — Amine 70/100, Youssef 70/100, égalité conservée, aucun départage automatique, les deux profils restent accessibles à la revue humaine. La décision **définitive reste ouverte** (choix A/B/C ou reconduction de E). Aucun score modifié.
-- D-05/D-01b : versions exactes communes PHP & MySQL/MariaDB (relevé 5 postes requis).
+- D-05/D-01b : versions exactes PHP & MySQL/MariaDB relevées sur l'environnement local unique (développeur seul — D-25).
 - D-06 : localhost seul vs démonstration LAN ponctuelle.
 - D-10 : parsing CV MVP vs Bonus (recommandation source : Bonus ; upload + saisie vérifiée d'abord).
 - D-12 : vidéo différée simulation (recommandé) vs réelle (extension).
@@ -102,9 +102,10 @@ Liste complète et conséquences dans `16_DECISIONS_EN_ATTENTE.md`. Bloquants po
 2. Architecture et structure de dossiers acceptées (`03_...`).
 3. Modèle de données conceptuel accepté (liste de tables et relations, `04_...`).
 4. Matrice de permissions acceptée (`05_...`).
-5. Stratégie migrations/sync des 5 bases acceptée (`08_...`).
+5. Stratégie migrations/sync de la base locale unique acceptée (`08_...`, adaptée solo par D-25 ; reproductibilité maintenue).
 6. Décisions ouvertes arbitrées par l'utilisateur — notamment **validation définitive de D-08** (l'Option E est déjà actée provisoirement depuis le 2026-10-31 pour les besoins des tests).
-7. ~~Validation D-16~~ **D-16 VALIDÉE le 2026-10-31** (MP V3 = référence textuelle complémentaire officielle, jamais transcription certifiée du PDF) ; reste : plan de relevé des 5 postes approuvé.
+7. ~~Validation D-16~~ **D-16 VALIDÉE le 2026-10-31** (MP V3 = référence textuelle complémentaire officielle, jamais transcription certifiée du PDF) ; reste : plan de relevé de l'environnement local unique approuvé.
+8. **D-25 VALIDÉE le 01/11/2026** (développement individuel confirmé par le propriétaire : un seul développeur, un seul environnement WampServer, pas de CODEOWNERS/handles d'équipe — D-22 close ; workflow GitHub simplifié ; planning adapté au solo sans réduction du périmètre fonctionnel ni des tests T-01→T-35). **D-26 ouverte** : modalités d'exécution du test officiel T-33 en contexte mono-machine.
 
 ## 10. Addenda — corrections de reprise du 2026-10-31 (autorisées par le propriétaire)
 
