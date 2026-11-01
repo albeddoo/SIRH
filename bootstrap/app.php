@@ -9,6 +9,7 @@ declare(strict_types=1);
 $root = dirname(__DIR__);
 
 require $root . '/bootstrap/autoload.php';
+require $root . '/bootstrap/helpers.php'; // abort(), redirect(), flash()
 
 $config = require $root . '/config/config.php';
 

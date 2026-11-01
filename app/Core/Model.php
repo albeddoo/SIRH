@@ -58,4 +58,15 @@ abstract class Model
         $sql = "SELECT COUNT(*) AS c FROM `{$this->table}`" . ($where !== '' ? " WHERE {$where}" : '');
         return (int) (Database::fetchOne($sql, $params)['c'] ?? 0);
     }
+
+    /** Requête SQL écrite dans le modèle (code serveur uniquement, jamais depuis le frontend). */
+    public static function query(string $sql, array $params = []): array
+    {
+        return Database::fetchAll($sql, $params);
+    }
+
+    public static function queryOne(string $sql, array $params = []): ?array
+    {
+        return Database::fetchOne($sql, $params);
+    }
 }

@@ -33,4 +33,26 @@ abstract class Controller
         http_response_code(404);
         return View::render('errors/404', [], null);
     }
+
+    /** Garde RBAC (Auth::requirePermission coupe-court avec 403 journalisé). */
+    protected function requirePermission(string $permission): void
+    {
+        Auth::requirePermission($permission);
+    }
+
+    /** Vérification CSRF explicite dans les contrôleurs. */
+    protected function verifyCsrf(): void
+    {
+        Csrf::verifyOrDie();
+    }
+
+    /** POST obligatoire + CSRF pour les actions en mutation. */
+    protected function verifyCsrfPost(): void
+    {
+        if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+            http_response_code(405);
+            exit('Méthode non autorisée.');
+        }
+        $this->verifyCsrf();
+    }
 }
