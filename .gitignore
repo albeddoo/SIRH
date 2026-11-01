@@ -1,3 +1,14 @@
 .env
 .env.local
 storage/logs/*.log
+
+# Documents generes (jamais versionnes)
+storage/documents/*
+!storage/documents/.gitkeep
+storage/exports/*
+!storage/exports/.gitkeep
+storage/uploads/*
+!storage/uploads/.gitkeep
+storage/framework/*
+!storage/framework/.gitkeep
+vendor/
