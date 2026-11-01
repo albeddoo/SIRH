@@ -30,10 +30,28 @@ $uri    = $_SERVER['REQUEST_URI'] ?? '/';
 $router = new Router();
 
 // ── Routes du socle (Phase 01) ───────────────────────────────────────────────
-// Les modules fonctionnels arriveront en Phase 02+ (aucun bouton décoratif :
-// chaque route ci-dessous est réellement implémentée).
 $router->get('/', [\App\Controllers\HomeController::class, 'index']);
 $router->get('/health', [\App\Controllers\HomeController::class, 'health']); // diagnostics socle (versions, BD, extensions)
 $router->get('/csrf-token', static fn (): string => json_encode(['token' => Csrf::token()]));
+
+// ── Authentification & sessions révocables (Phase 02) ───────────────────────
+$AC = \App\Controllers\AuthController::class;
+$router->get('/login',  [$AC, 'showLogin']);
+$router->post('/login', [$AC, 'login']);
+$router->post('/logout', [$AC, 'logout']);
+$router->get('/profile', [$AC, 'profile']);
+$router->post('/profile/preferences', [$AC, 'savePreferences']);
+$router->post('/profile/password', [$AC, 'changePassword']);
+
+// ── Administration : utilisateurs, rôles, paramètres, audit (Phase 02) ──────
+$AD = \App\Controllers\AdminController::class;
+$router->get('/admin/users', [$AD, 'users']);
+$router->post('/admin/users/create', [$AD, 'createUser']);
+$router->post('/admin/users/{id}/toggle', [$AD, 'toggleUserStatus']);
+$router->post('/admin/users/{id}/roles', [$AD, 'saveUserRoles']);
+$router->get('/admin/roles', [$AD, 'roles']);
+$router->get('/admin/settings', [$AD, 'settings']);
+$router->post('/admin/settings/save', [$AD, 'saveSetting']);
+$router->get('/admin/audit', [\App\Controllers\AuditController::class, 'index']);
 
 $router->dispatch($method, $uri);
